@@ -53,8 +53,7 @@ The app starts on **http://localhost:8080**.
 On first startup, a default admin account is created automatically:
 
 ```
-username: admin
-password: Admin@123
+
 ```
 
 Change these via `application.properties` (`app.admin.username` / `app.admin.password`) before
