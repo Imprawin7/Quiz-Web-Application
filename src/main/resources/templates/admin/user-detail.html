@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results - QuizPlatform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{fragments :: navbar-admin}"></nav>
+
+<div class="container pb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin/users">Students</a></li>
+            <li class="breadcrumb-item active" th:text="${student.fullName}">Student</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <h4 class="fw-bold mb-1" th:text="${student.fullName}">Student</h4>
+            <p class="text-muted mb-0" th:text="${student.username} + ' · ' + ${student.email}">details</p>
+        </div>
+        <span th:if="${student.enabled}" class="badge bg-success">Active</span>
+        <span th:unless="${student.enabled}" class="badge bg-secondary">Deactivated</span>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-card bg-grad-purple">
+                <div class="stat-value" th:text="${stats.totalAttempts}">0</div>
+                <div class="stat-label">Attempts</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card bg-grad-green">
+                <div class="stat-value" th:text="${stats.averagePercentage} + '%'">0%</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card bg-grad-orange">
+                <div class="stat-value" th:text="${stats.bestPercentage} + '%'">0%</div>
+                <div class="stat-label">Best Score</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card bg-grad-blue">
+                <div class="stat-value" th:text="${stats.quizzesTaken}">0</div>
+                <div class="stat-label">Quizzes Taken</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead><tr><th>Quiz</th><th>Score</th><th>%</th><th>Status</th><th>Date</th></tr></thead>
+                <tbody>
+                <tr th:each="a : ${attempts}">
+                    <td th:text="${a.quiz.title}">Quiz</td>
+                    <td th:text="${a.score} + '/' + ${a.totalMarks}">0</td>
+                    <td th:text="${a.percentage} + '%'">0%</td>
+                    <td>
+                        <span th:if="${a.status.name() == 'SUBMITTED'}" class="badge bg-success">Submitted</span>
+                        <span th:if="${a.status.name() == 'TIME_EXPIRED'}" class="badge bg-warning text-dark">Time Expired</span>
+                    </td>
+                    <td th:text="${#temporals.format(a.endTime, 'dd MMM yyyy, HH:mm')}">-</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(attempts)}">
+                    <td colspan="5" class="text-center text-muted py-4">This student hasn't attempted any quiz yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

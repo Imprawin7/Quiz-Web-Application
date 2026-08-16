@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - QuizPlatform</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <!-- QuizPlatform CSS -->
+    <link href="/css/style.css"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+<div class="quiz-layout">
+
+    <!-- =====================================================
+         STUDENT SIDEBAR
+         ===================================================== -->
+
+    <aside th:replace="~{fragments :: sidebar-student}"></aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="quiz-main">
+
+        <!-- =================================================
+             PAGE HEADER
+             ================================================= -->
+
+        <div class="page-header mb-4">
+
+            <h3 class="fw-bold mb-1">
+                My Profile
+            </h3>
+
+            <p class="text-muted mb-0">
+                View your QuizPlatform account information.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             PROFILE CARD
+             ================================================= -->
+
+        <div class="row g-4">
+
+            <!-- =================================================
+                 PROFILE INFORMATION
+                 ================================================= -->
+
+            <div class="col-12 col-lg-8">
+
+                <div class="profile-card">
+
+                    <!-- Profile Header -->
+
+                    <div class="profile-header mb-4">
+
+                        <div class="profile-avatar">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h4 class="fw-bold mb-1"
+                                th:text="${student.fullName}">
+                                Student
+                            </h4>
+
+                            <p class="text-muted mb-0">
+
+                                <i class="bi bi-person-badge me-1"></i>
+
+                                <span th:text="${student.role}">
+                                    STUDENT
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="mb-4">
+
+
+                    <!-- =================================================
+                         FULL NAME
+                         ================================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="profile-label">
+                            Full Name
+                        </label>
+
+                        <div class="profile-value">
+
+                            <i class="bi bi-person me-2 text-primary"></i>
+
+                            <span th:text="${student.fullName}">
+                                Student
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         USERNAME
+                         ================================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="profile-label">
+                            Username
+                        </label>
+
+                        <div class="profile-value">
+
+                            <i class="bi bi-at me-2 text-primary"></i>
+
+                            <span th:text="${student.username}">
+                                username
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         EMAIL
+                         ================================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="profile-label">
+                            Email Address
+                        </label>
+
+                        <div class="profile-value">
+
+                            <i class="bi bi-envelope me-2 text-primary"></i>
+
+                            <span th:text="${student.email}">
+                                email@example.com
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ROLE
+                         ================================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="profile-label">
+                            Account Role
+                        </label>
+
+                        <div class="profile-value">
+
+                            <i class="bi bi-shield-check me-2 text-primary"></i>
+
+                            <span th:text="${student.role}">
+                                STUDENT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ACCOUNT STATUS
+                         ================================================= -->
+
+                    <div class="mb-4">
+
+                        <label class="profile-label">
+                            Account Status
+                        </label>
+
+                        <div class="profile-value">
+
+                            <span th:if="${student.enabled}"
+                                  class="badge bg-success">
+
+                                <i class="bi bi-check-circle me-1"></i>
+
+                                Active
+
+                            </span>
+
+                            <span th:unless="${student.enabled}"
+                                  class="badge bg-danger">
+
+                                <i class="bi bi-x-circle me-1"></i>
+
+                                Disabled
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MEMBER SINCE
+                         ================================================= -->
+
+                    <div>
+
+                        <label class="profile-label">
+                            Member Since
+                        </label>
+
+                        <div class="profile-value">
+
+                            <i class="bi bi-calendar3 me-2 text-primary"></i>
+
+                            <span th:text="${student.createdAt}">
+                                Date
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE SUMMARY
+                 ================================================= -->
+
+            <div class="col-12 col-lg-4">
+
+                <div class="card p-4 h-100">
+
+                    <div class="text-center mb-4">
+
+                        <div class="profile-avatar mx-auto mb-3">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+                        <h5 class="fw-bold mb-1"
+                            th:text="${student.fullName}">
+                            Student
+                        </h5>
+
+                        <p class="text-muted small mb-0"
+                           th:text="${student.email}">
+                            email@example.com
+                        </p>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="mb-3">
+
+                        <div class="d-flex justify-content-between">
+
+                            <span class="text-muted">
+                                Username
+                            </span>
+
+                            <strong th:text="${student.username}">
+                                username
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="d-flex justify-content-between">
+
+                            <span class="text-muted">
+                                Role
+                            </span>
+
+                            <span class="badge bg-primary"
+                                  th:text="${student.role}">
+                                STUDENT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="d-flex justify-content-between">
+
+                            <span class="text-muted">
+                                Status
+                            </span>
+
+                            <span th:if="${student.enabled}"
+                                  class="badge bg-success">
+                                Active
+                            </span>
+
+                            <span th:unless="${student.enabled}"
+                                  class="badge bg-danger">
+                                Disabled
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BACK TO DASHBOARD
+             ================================================= -->
+
+        <div class="mt-4">
+
+            <a href="/student/dashboard"
+               class="btn btn-outline-primary">
+
+                <i class="bi bi-arrow-left me-1"></i>
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

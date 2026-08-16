@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${quiz.title} + ' - QuizPlatform'">Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{fragments :: navbar-student}"></nav>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card p-4 p-md-5 text-center">
+                <img th:if="${quiz.thumbnailUrl != null}" th:src="${quiz.thumbnailUrl}"
+                     class="rounded-3 mb-3" style="max-height:160px; object-fit:cover; width:100%;" alt="Quiz thumbnail">
+                <i th:unless="${quiz.thumbnailUrl != null}" class="bi bi-journal-check" style="font-size:3rem;color:#4f46e5;"></i>
+
+                <h3 class="fw-bold mt-3" th:text="${quiz.title}">Quiz Title</h3>
+                <p class="mb-2">
+                    <span class="badge bg-light text-dark border" th:text="${quiz.category != null ? quiz.category.name : 'Uncategorized'}">Category</span>
+                    <span class="badge bg-light text-dark border" th:text="${quiz.difficulty}">MEDIUM</span>
+                </p>
+                <p class="text-muted" th:text="${quiz.description}">Description</p>
+
+                <div class="row g-3 my-3 text-start">
+                    <div class="col-4">
+                        <div class="border rounded-3 p-2 text-center">
+                            <div class="fw-bold fs-5" th:text="${quiz.questionCount}">0</div>
+                            <div class="small text-muted">Questions</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded-3 p-2 text-center">
+                            <div class="fw-bold fs-5" th:text="${quiz.durationMinutes}">0</div>
+                            <div class="small text-muted">Minutes</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border rounded-3 p-2 text-center">
+                            <div class="fw-bold fs-5" th:text="${quiz.totalMarks}">0</div>
+                            <div class="small text-muted">Total Marks</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border rounded-3 p-2 text-center">
+                            <div class="fw-bold fs-5" th:text="${quiz.passingPercentage} + '%'">0%</div>
+                            <div class="small text-muted">Passing Score</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border rounded-3 p-2 text-center">
+                            <div class="fw-bold fs-5" th:text="${attemptsUsed} + ' / ' + ${quiz.maxAttempts}">0 / 1</div>
+                            <div class="small text-muted">Attempts Used</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${error}" class="alert alert-danger text-start small" th:text="${error}"></div>
+
+                <div th:if="${maxAttemptsReached}" class="alert alert-secondary text-start small">
+                    <i class="bi bi-lock-fill me-1"></i>
+                    You've used all your attempts for this quiz.
+                </div>
+
+                <div th:unless="${maxAttemptsReached}" class="alert alert-warning text-start small">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Once started, a countdown timer begins immediately. The quiz auto-submits when time runs out,
+                    so make sure you're ready before you begin.
+                    <span th:if="${attemptsRemaining} == 1"> This is your last attempt.</span>
+                </div>
+
+                <form th:action="@{/quiz/{id}/begin(id=${quiz.id})}" method="post">
+                    <button type="submit" class="btn btn-primary btn-lg px-5" th:disabled="${maxAttemptsReached}">
+                        Start Quiz
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

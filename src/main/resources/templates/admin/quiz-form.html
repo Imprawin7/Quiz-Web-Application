@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${isEdit} ? 'Edit Quiz' : 'New Quiz'">Quiz Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{fragments :: navbar-admin}"></nav>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card p-4">
+                <h4 class="fw-bold mb-4" th:text="${isEdit} ? 'Edit Quiz' : 'Create New Quiz'">Quiz Form</h4>
+
+                <div th:if="${#lists.isEmpty(categories)}" class="alert alert-warning small">
+                    No categories exist yet. <a href="/admin/categories">Create one first</a> before adding a quiz.
+                </div>
+
+                <form th:action="${isEdit} ? @{/admin/quizzes/{id}(id=${quiz.id})} : @{/admin/quizzes}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" th:value="${quiz.title}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3" th:text="${quiz.description}"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Thumbnail Image URL <span class="text-muted small">(optional)</span></label>
+                        <input type="url" name="thumbnailUrl" class="form-control" th:value="${quiz.thumbnailUrl}"
+                               placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <select name="categoryId" class="form-select" required>
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                                        th:selected="${quiz.category != null and quiz.category.id == c.id}"></option>
+                            </select>
+                            <div class="form-text">Need a new category? <a href="/admin/categories" target="_blank">Manage categories</a>.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Difficulty</label>
+                            <select name="difficulty" class="form-select" required>
+                                <option th:each="d : ${difficulties}" th:value="${d}" th:text="${d}"
+                                        th:selected="${quiz.difficulty != null and quiz.difficulty == d}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Duration (min)</label>
+                            <input type="number" name="durationMinutes" class="form-control" min="1" th:value="${quiz.durationMinutes} ?: 10" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Passing %</label>
+                            <input type="number" name="passingPercentage" class="form-control" min="0" max="100" th:value="${quiz.passingPercentage} ?: 40" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Max Attempts</label>
+                            <input type="number" name="maxAttempts" class="form-control" min="1" th:value="${quiz.maxAttempts} ?: 1" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Status</label>
+                            <select name="status" class="form-select" required>
+                                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"
+                                        th:selected="${quiz.status != null and quiz.status == s}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Quiz</button>
+                        <a href="/admin/quizzes" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
