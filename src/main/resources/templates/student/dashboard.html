@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -19,20 +19,68 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
           rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- QuizPlatform CSS -->
     <link href="/css/style.css"
           rel="stylesheet">
 
 </head>
 
+
 <body class="student-dashboard">
 
 
 <!-- =========================================================
-     LEFT SIDEBAR
+     MOBILE HEADER
      ========================================================= -->
 
-<div th:replace="~{fragments :: sidebar-student}"></div>
+<header class="mobile-dashboard-header">
+
+    <button type="button"
+            class="mobile-menu-btn"
+            id="studentMenuToggle"
+            aria-label="Open navigation menu"
+            aria-controls="studentSidebar"
+            aria-expanded="false">
+
+        <i class="bi bi-list"></i>
+
+    </button>
+
+
+    <a href="/student/dashboard"
+       class="mobile-brand">
+
+        <i class="bi bi-patch-question-fill"></i>
+
+        <span>QuizPlatform</span>
+
+    </a>
+
+</header>
+
+
+<!-- =========================================================
+     STUDENT SIDEBAR
+     IMPORTANT:
+     The wrapper is outside th:replace so JavaScript can
+     reliably find #studentSidebar.
+     ========================================================= -->
+
+<div id="studentSidebar"
+     class="student-sidebar-wrapper">
+
+    <div th:replace="~{fragments :: sidebar-student}"></div>
+
+</div>
+
+
+<!-- =========================================================
+     MOBILE OVERLAY
+     ========================================================= -->
+
+<div class="sidebar-overlay"
+     id="studentSidebarOverlay">
+</div>
 
 
 <!-- =========================================================
@@ -45,122 +93,133 @@
 
 
         <!-- =================================================
-             WELCOME SECTION
+             WELCOME
              ================================================= -->
 
-        <div class="welcome-section">
+        <section class="welcome-section">
 
             <h2 class="fw-bold mb-1">
+
                 Hi,
+
                 <span th:text="${student.fullName}">
                     Prawin
                 </span>
+
             </h2>
 
             <p class="text-muted mb-0">
                 Ready to test your knowledge today?
             </p>
 
-        </div>
+        </section>
 
 
         <!-- =================================================
              STATISTICS
              ================================================= -->
 
-        <div class="stats-grid">
+        <section class="stats-grid">
 
-            <!-- Attempted -->
+
             <div class="stat-card bg-grad-purple">
+
                 <div class="stat-value"
                      th:text="${stats.totalAttempts}">
                     0
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-clipboard-check"></i>
+                    <i class="bi bi-clipboard-check me-1"></i>
                     Attempted
                 </div>
+
             </div>
 
 
-            <!-- Average -->
             <div class="stat-card bg-grad-green">
+
                 <div class="stat-value"
                      th:text="${stats.averagePercentage} + '%'">
                     0%
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-bar-chart"></i>
+                    <i class="bi bi-bar-chart me-1"></i>
                     Average Score
                 </div>
+
             </div>
 
 
-            <!-- Highest -->
             <div class="stat-card bg-grad-orange">
+
                 <div class="stat-value"
                      th:text="${stats.bestPercentage} + '%'">
                     0%
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-trophy"></i>
+                    <i class="bi bi-trophy me-1"></i>
                     Highest Score
                 </div>
+
             </div>
 
 
-            <!-- Passed -->
             <div class="stat-card bg-grad-green">
+
                 <div class="stat-value"
                      th:text="${stats.totalPassed}">
                     0
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-check-circle"></i>
+                    <i class="bi bi-check-circle me-1"></i>
                     Passed
                 </div>
+
             </div>
 
 
-            <!-- Failed -->
             <div class="stat-card bg-grad-orange">
+
                 <div class="stat-value"
                      th:text="${stats.totalFailed}">
                     0
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-x-circle"></i>
+                    <i class="bi bi-x-circle me-1"></i>
                     Failed
                 </div>
+
             </div>
 
 
-            <!-- Questions Answered -->
             <div class="stat-card bg-grad-blue">
+
                 <div class="stat-value"
                      th:text="${stats.totalQuestionsAnswered}">
                     0
                 </div>
 
                 <div class="stat-label">
-                    <i class="bi bi-question-circle"></i>
+                    <i class="bi bi-question-circle me-1"></i>
                     Questions Answered
                 </div>
+
             </div>
 
-        </div>
+
+        </section>
 
 
         <!-- =================================================
-             AVAILABLE QUIZZES
+             AVAILABLE QUIZZES HEADER
              ================================================= -->
 
-        <div class="section-header">
+        <section class="section-header">
 
             <h4>
                 Available Quizzes
@@ -175,26 +234,37 @@
 
             </a>
 
-        </div>
+        </section>
 
 
-        <div class="quiz-grid">
+        <!-- =================================================
+             AVAILABLE QUIZZES
+             ================================================= -->
+
+        <section class="quiz-grid">
 
 
-            <!-- QUIZ CARD -->
-
-            <div class="quiz-card"
-                 th:each="quiz, iter : ${availableQuizzes}"
-                 th:if="${iter.index < 3}">
+            <article class="quiz-card"
+                     th:each="quiz, iter : ${availableQuizzes}"
+                     th:if="${iter.index < 3}">
 
 
                 <!-- Thumbnail -->
 
-                <div th:if="${quiz.thumbnailUrl != null}"
-                     class="quiz-thumbnail">
+                <div class="quiz-thumbnail">
 
-                    <img th:src="${quiz.thumbnailUrl}"
-                         alt="Quiz thumbnail">
+                    <img th:if="${quiz.thumbnailUrl != null
+                                  and !#strings.isEmpty(quiz.thumbnailUrl)}"
+                         th:src="${quiz.thumbnailUrl}"
+                         th:alt="${quiz.title + ' thumbnail'}">
+
+                    <div th:unless="${quiz.thumbnailUrl != null
+                                     and !#strings.isEmpty(quiz.thumbnailUrl)}"
+                         class="quiz-thumbnail-placeholder">
+
+                        <i class="bi bi-journal-text"></i>
+
+                    </div>
 
                 </div>
 
@@ -203,17 +273,16 @@
 
                 <div class="quiz-body">
 
-                    <!-- Category -->
 
                     <div class="quiz-category"
-                         th:text="${quiz.category != null ? quiz.category.name : 'Uncategorized'}">
+                         th:text="${quiz.category != null
+                                   ? quiz.category.name
+                                   : 'Uncategorized'}">
 
                         Category
 
                     </div>
 
-
-                    <!-- Title -->
 
                     <h5 class="quiz-title"
                         th:text="${quiz.title}">
@@ -223,17 +292,15 @@
                     </h5>
 
 
-                    <!-- Description -->
-
                     <p class="quiz-description"
-                       th:text="${quiz.description}">
+                       th:text="${quiz.description != null
+                                 ? quiz.description
+                                 : 'Test your knowledge with this quiz.'}">
 
                         Quiz description
 
                     </p>
 
-
-                    <!-- Details -->
 
                     <div class="quiz-details">
 
@@ -271,8 +338,6 @@
                     </div>
 
 
-                    <!-- Start Button -->
-
                     <a th:href="@{/quiz/{id}/start(id=${quiz.id})}"
                        class="start-quiz-btn">
 
@@ -282,9 +347,10 @@
 
                     </a>
 
+
                 </div>
 
-            </div>
+            </article>
 
 
             <!-- NO QUIZZES -->
@@ -304,14 +370,15 @@
 
             </div>
 
-        </div>
+
+        </section>
 
 
         <!-- =================================================
-             RECENT RESULTS
+             RECENT RESULTS HEADER
              ================================================= -->
 
-        <div class="section-header recent-header">
+        <section class="section-header recent-header">
 
             <h4>
                 Recent Results
@@ -326,10 +393,14 @@
 
             </a>
 
-        </div>
+        </section>
 
 
-        <div class="results-card">
+        <!-- =================================================
+             RECENT RESULTS
+             ================================================= -->
+
+        <section class="results-card">
 
             <div class="table-responsive">
 
@@ -338,12 +409,14 @@
                     <thead>
 
                     <tr>
+
                         <th>Quiz</th>
                         <th>Score</th>
                         <th>Percentage</th>
                         <th>Result</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Action</th>
+
                     </tr>
 
                     </thead>
@@ -352,18 +425,17 @@
                     <tbody>
 
 
-                    <!-- Result -->
-
                     <tr th:each="a : ${recentAttempts}">
 
+
                         <td>
+
                             <strong th:text="${a.quiz.title}">
                                 Quiz
                             </strong>
+
                         </td>
 
-
-                        <!-- CORRECTED THYMELEAF EXPRESSION -->
 
                         <td th:text="${a.score + '/' + a.totalMarks}">
                             0/0
@@ -371,9 +443,11 @@
 
 
                         <td>
+
                             <span th:text="${a.percentage} + '%'">
                                 0%
                             </span>
+
                         </td>
 
 
@@ -381,12 +455,16 @@
 
                             <span th:if="${a.passed}"
                                   class="result-badge passed">
+
                                 Passed
+
                             </span>
 
                             <span th:unless="${a.passed}"
                                   class="result-badge failed">
+
                                 Not Passed
+
                             </span>
 
                         </td>
@@ -394,14 +472,27 @@
 
                         <td>
 
-                            <span th:if="${a.status.name() == 'SUBMITTED'}"
+                            <span th:if="${a.status != null
+                                           and a.status.name() == 'SUBMITTED'}"
                                   class="status-badge submitted">
+
                                 Submitted
+
                             </span>
 
-                            <span th:if="${a.status.name() == 'TIME_EXPIRED'}"
+                            <span th:if="${a.status != null
+                                           and a.status.name() == 'TIME_EXPIRED'}"
                                   class="status-badge expired">
+
                                 Time Expired
+
+                            </span>
+
+                            <span th:if="${a.status == null}"
+                                  class="status-badge submitted">
+
+                                Unknown
+
                             </span>
 
                         </td>
@@ -417,6 +508,7 @@
                             </a>
 
                         </td>
+
 
                     </tr>
 
@@ -434,6 +526,10 @@
                                 You haven't attempted any quiz yet.
                             </div>
 
+                            <small>
+                                Start a quiz to see your results here.
+                            </small>
+
                         </td>
 
                     </tr>
@@ -445,13 +541,138 @@
 
             </div>
 
-        </div>
+        </section>
+
 
     </div>
 
 </main>
 
 
+<!-- =========================================================
+     MOBILE SIDEBAR JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuButton =
+        document.getElementById("studentMenuToggle");
+
+    const sidebar =
+        document.getElementById("studentSidebar");
+
+    const overlay =
+        document.getElementById("studentSidebarOverlay");
+
+
+    if (!menuButton || !sidebar || !overlay) {
+        return;
+    }
+
+
+    function openSidebar() {
+
+        sidebar.classList.add("mobile-open");
+
+        overlay.classList.add("active");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        document.body.classList.add("sidebar-open");
+
+    }
+
+
+    function closeSidebar() {
+
+        sidebar.classList.remove("mobile-open");
+
+        overlay.classList.remove("active");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        document.body.classList.remove("sidebar-open");
+
+    }
+
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            if (sidebar.classList.contains("mobile-open")) {
+
+                closeSidebar();
+
+            } else {
+
+                openSidebar();
+
+            }
+
+        }
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+                closeSidebar();
+            }
+
+        }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+
+        }
+    );
+
+
+    sidebar.addEventListener(
+        "click",
+        function (event) {
+
+            const link =
+                event.target.closest("a");
+
+            if (
+                link &&
+                window.innerWidth <= 768
+            ) {
+                closeSidebar();
+            }
+
+        }
+    );
+
+});
+
+</script>
+
+
 </body>
 </html>
-```

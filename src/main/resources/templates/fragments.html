@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -47,9 +47,7 @@
 
 
 <!-- =========================================================
-     ADMIN NAVBAR
-     
-     Kept for pages that still use the old navbar layout.
+     OLD ADMIN NAVBAR
      ========================================================= -->
 
 <nav th:fragment="navbar-admin"
@@ -163,12 +161,6 @@
 
 <!-- =========================================================
      OLD STUDENT NAVBAR
-     
-     Kept for older student pages.
-     
-     IMPORTANT:
-     The new student dashboard should use sidebar-student
-     instead of this navbar.
      ========================================================= -->
 
 <nav th:fragment="navbar-student"
@@ -268,295 +260,478 @@
 
 
 <!-- =========================================================
-     STUDENT SIDEBAR
-     
-     This is the NEW student layout.
-
-     Structure:
-
-     ┌──────────────────────────────────────────────┐
-     │ QuizPlatform                                 │
-     ├──────────────┬───────────────────────────────┤
-     │ Dashboard    │                               │
-     │ Quizzes      │       Dashboard Content       │
-     │ My History   │                               │
-     │ Leaderboard  │                               │
-     │ Profile      │                               │
-     │              │                               │
-     │ Logout       │                               │
-     └──────────────┴───────────────────────────────┘
+     NEW STUDENT SIDEBAR
      ========================================================= -->
 
-<aside th:fragment="sidebar-student"
-       class="student-sidebar">
+<th:block th:fragment="sidebar-student">
 
-    <!-- =====================================================
-         BRAND
-         ===================================================== -->
+    <!-- Mobile menu button -->
 
-    <div class="sidebar-brand">
+    <button type="button"
+            class="mobile-menu-btn"
+            onclick="toggleMobileSidebar()"
+            aria-label="Open menu">
 
-        <a href="/student/dashboard"
-           class="sidebar-brand-link">
+        <i class="bi bi-list"></i>
 
-            <i class="bi bi-mortarboard-fill"></i>
+    </button>
 
-            <span>QuizPlatform</span>
 
-        </a>
+    <!-- Mobile overlay -->
 
+    <div class="mobile-sidebar-overlay"
+         onclick="closeMobileSidebar()">
     </div>
 
 
-    <!-- =====================================================
-         MAIN MENU
-         ===================================================== -->
+    <!-- Student Sidebar -->
 
-    <div class="sidebar-menu">
-
-        <!-- Dashboard -->
-
-        <a href="/student/dashboard"
-           class="sidebar-link">
-
-            <i class="bi bi-house-door-fill"></i>
-
-            <span>Dashboard</span>
-
-        </a>
+    <aside class="student-sidebar"
+           id="studentSidebar">
 
 
-        <!-- Quizzes -->
+        <!-- Mobile close button -->
 
-        <a href="/student/quizzes"
-           class="sidebar-link">
+        <button type="button"
+                class="mobile-sidebar-close"
+                onclick="closeMobileSidebar()"
+                aria-label="Close menu">
 
-            <i class="bi bi-journal-text"></i>
+            <i class="bi bi-x-lg"></i>
 
-            <span>Quizzes</span>
-
-        </a>
-
-
-        <!-- My History -->
-
-        <a href="/student/history"
-           class="sidebar-link">
-
-            <i class="bi bi-clock-history"></i>
-
-            <span>My History</span>
-
-        </a>
+        </button>
 
 
-        <!-- Leaderboard -->
+        <!-- =====================================================
+             BRAND
+             ===================================================== -->
 
-        <a href="/leaderboard"
-           class="sidebar-link">
+        <div class="sidebar-brand">
 
-            <i class="bi bi-trophy-fill"></i>
+            <a href="/student/dashboard"
+               class="sidebar-brand-link">
 
-            <span>Leaderboard</span>
+                <i class="bi bi-mortarboard-fill"></i>
 
-        </a>
+                <span>QuizPlatform</span>
 
+            </a>
 
-        <!-- Profile -->
-
-        <a href="/student/profile"
-           class="sidebar-link">
-
-            <i class="bi bi-person-circle"></i>
-
-            <span>Profile</span>
-
-        </a>
-
-    </div>
+        </div>
 
 
-    <!-- =====================================================
-         BOTTOM LOGOUT
-         ===================================================== -->
+        <!-- =====================================================
+             MAIN MENU
+             ===================================================== -->
 
-    <div class="sidebar-bottom">
+        <div class="sidebar-menu">
 
-        <form th:action="@{/logout}"
-              method="post">
+            <a href="/student/dashboard"
+               class="sidebar-link">
 
-            <button type="submit"
-                    class="sidebar-link sidebar-logout">
+                <i class="bi bi-house-door-fill"></i>
 
-                <i class="bi bi-box-arrow-right"></i>
+                <span>Dashboard</span>
 
-                <span>Logout</span>
+            </a>
 
-            </button>
 
-        </form>
+            <a href="/student/quizzes"
+               class="sidebar-link">
 
-    </div>
+                <i class="bi bi-journal-text"></i>
 
-</aside>
+                <span>Quizzes</span>
+
+            </a>
+
+
+            <a href="/student/history"
+               class="sidebar-link">
+
+                <i class="bi bi-clock-history"></i>
+
+                <span>My History</span>
+
+            </a>
+
+
+            <a href="/leaderboard"
+               class="sidebar-link">
+
+                <i class="bi bi-trophy-fill"></i>
+
+                <span>Leaderboard</span>
+
+            </a>
+
+
+            <a href="/student/profile"
+               class="sidebar-link">
+
+                <i class="bi bi-person-circle"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             LOGOUT
+             ===================================================== -->
+
+        <div class="sidebar-bottom">
+
+            <form th:action="@{/logout}"
+                  method="post">
+
+                <button type="submit"
+                        class="sidebar-link sidebar-logout">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    <span>Logout</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+</th:block>
 
 
 
 <!-- =========================================================
-     ADMIN SIDEBAR
+     NEW ADMIN SIDEBAR
      ========================================================= -->
 
-<aside th:fragment="sidebar-admin"
-       class="admin-sidebar">
+<th:block th:fragment="sidebar-admin">
 
-    <!-- =====================================================
-         BRAND
-         ===================================================== -->
+    <!-- Mobile menu button -->
 
-    <div class="sidebar-brand">
+    <button type="button"
+            class="mobile-menu-btn admin-mobile-menu-btn"
+            onclick="toggleAdminSidebar()"
+            aria-label="Open admin menu">
 
-        <a href="/admin/dashboard"
-           class="sidebar-brand-link">
+        <i class="bi bi-list"></i>
 
-            <i class="bi bi-mortarboard-fill"></i>
+    </button>
 
-            <span>QuizPlatform</span>
 
-        </a>
+    <!-- Mobile overlay -->
 
+    <div class="mobile-sidebar-overlay"
+         id="adminSidebarOverlay"
+         onclick="closeAdminSidebar()">
     </div>
 
 
-    <!-- =====================================================
-         ADMIN MENU
-         ===================================================== -->
+    <!-- Admin Sidebar -->
 
-    <div class="sidebar-menu">
-
-        <!-- Dashboard -->
-
-        <a href="/admin/dashboard"
-           class="sidebar-link">
-
-            <i class="bi bi-speedometer2"></i>
-
-            <span>Dashboard</span>
-
-        </a>
+    <aside class="admin-sidebar"
+           id="adminSidebar">
 
 
-        <!-- Quizzes -->
+        <!-- Mobile close button -->
 
-        <a href="/admin/quizzes"
-           class="sidebar-link">
+        <button type="button"
+                class="mobile-sidebar-close"
+                onclick="closeAdminSidebar()"
+                aria-label="Close admin menu">
 
-            <i class="bi bi-journal-text"></i>
+            <i class="bi bi-x-lg"></i>
 
-            <span>Quizzes</span>
-
-        </a>
-
-
-        <!-- Categories -->
-
-        <a href="/admin/categories"
-           class="sidebar-link">
-
-            <i class="bi bi-grid"></i>
-
-            <span>Categories</span>
-
-        </a>
+        </button>
 
 
-        <!-- Students -->
+        <!-- =====================================================
+             BRAND
+             ===================================================== -->
 
-        <a href="/admin/users"
-           class="sidebar-link">
+        <div class="sidebar-brand">
 
-            <i class="bi bi-people-fill"></i>
+            <a href="/admin/dashboard"
+               class="sidebar-brand-link">
 
-            <span>Students</span>
+                <i class="bi bi-mortarboard-fill"></i>
 
-        </a>
+                <span>QuizPlatform</span>
 
+            </a>
 
-        <!-- All Attempts -->
-
-        <a href="/admin/attempts"
-           class="sidebar-link">
-
-            <i class="bi bi-clipboard-check"></i>
-
-            <span>All Attempts</span>
-
-        </a>
+        </div>
 
 
-        <!-- Analytics -->
+        <!-- =====================================================
+             ADMIN MENU
+             ===================================================== -->
 
-        <a href="/admin/analytics"
-           class="sidebar-link">
-
-            <i class="bi bi-bar-chart-fill"></i>
-
-            <span>Analytics</span>
-
-        </a>
+        <div class="sidebar-menu">
 
 
-        <!-- Leaderboard -->
+            <!-- Dashboard -->
 
-        <a href="/leaderboard"
-           class="sidebar-link">
+            <a href="/admin/dashboard"
+               class="sidebar-link">
 
-            <i class="bi bi-trophy-fill"></i>
+                <i class="bi bi-speedometer2"></i>
 
-            <span>Leaderboard</span>
+                <span>Dashboard</span>
 
-        </a>
-
-
-        <!-- Profile -->
-
-        <a href="/admin/profile"
-           class="sidebar-link">
-
-            <i class="bi bi-person-circle"></i>
-
-            <span>Profile</span>
-
-        </a>
-
-    </div>
+            </a>
 
 
-    <!-- =====================================================
-         ADMIN LOGOUT
-         ===================================================== -->
+            <!-- Quizzes -->
 
-    <div class="sidebar-bottom">
+            <a href="/admin/quizzes"
+               class="sidebar-link">
 
-        <form th:action="@{/logout}"
-              method="post">
+                <i class="bi bi-journal-text"></i>
 
-            <button type="submit"
-                    class="sidebar-link sidebar-logout">
+                <span>Quizzes</span>
 
-                <i class="bi bi-box-arrow-right"></i>
+            </a>
 
-                <span>Logout</span>
 
-            </button>
+            <!-- Categories -->
 
-        </form>
+            <a href="/admin/categories"
+               class="sidebar-link">
 
-    </div>
+                <i class="bi bi-grid"></i>
 
-</aside>
+                <span>Categories</span>
+
+            </a>
+
+
+            <!-- Students -->
+
+            <a href="/admin/users"
+               class="sidebar-link">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>Students</span>
+
+            </a>
+
+
+            <!-- All Attempts -->
+
+            <a href="/admin/attempts"
+               class="sidebar-link">
+
+                <i class="bi bi-clipboard-check"></i>
+
+                <span>All Attempts</span>
+
+            </a>
+
+
+            <!-- Analytics -->
+
+            <a href="/admin/analytics"
+               class="sidebar-link">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                <span>Analytics</span>
+
+            </a>
+
+
+            <!-- Leaderboard -->
+
+            <a href="/leaderboard"
+               class="sidebar-link">
+
+                <i class="bi bi-trophy-fill"></i>
+
+                <span>Leaderboard</span>
+
+            </a>
+
+
+            <!-- Profile -->
+
+            <a href="/admin/profile"
+               class="sidebar-link">
+
+                <i class="bi bi-person-circle"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             ADMIN LOGOUT
+             ===================================================== -->
+
+        <div class="sidebar-bottom">
+
+            <form th:action="@{/logout}"
+                  method="post">
+
+                <button type="submit"
+                        class="sidebar-link sidebar-logout">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    <span>Logout</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+</th:block>
+
+
+
+<!-- =========================================================
+     SIDEBAR JAVASCRIPT
+     
+     This is required for mobile sidebar opening/closing.
+     ========================================================= -->
+
+<script th:fragment="sidebar-script">
+
+    /* =========================================================
+       STUDENT SIDEBAR
+       ========================================================= */
+
+    function toggleMobileSidebar() {
+
+        const sidebar =
+            document.getElementById('studentSidebar');
+
+        const overlay =
+            document.querySelector('.mobile-sidebar-overlay');
+
+        if (!sidebar) {
+            return;
+        }
+
+        sidebar.classList.toggle('mobile-open');
+
+        if (overlay) {
+            overlay.classList.toggle(
+                'mobile-open',
+                sidebar.classList.contains('mobile-open')
+            );
+        }
+    }
+
+
+    function closeMobileSidebar() {
+
+        const sidebar =
+            document.getElementById('studentSidebar');
+
+        const overlay =
+            document.querySelector('.mobile-sidebar-overlay');
+
+        if (sidebar) {
+            sidebar.classList.remove('mobile-open');
+        }
+
+        if (overlay) {
+            overlay.classList.remove('mobile-open');
+        }
+    }
+
+
+    /* =========================================================
+       ADMIN SIDEBAR
+       ========================================================= */
+
+    function toggleAdminSidebar() {
+
+        const sidebar =
+            document.getElementById('adminSidebar');
+
+        const overlay =
+            document.getElementById('adminSidebarOverlay');
+
+        if (!sidebar) {
+            return;
+        }
+
+        sidebar.classList.toggle('mobile-open');
+
+        if (overlay) {
+            overlay.classList.toggle(
+                'mobile-open',
+                sidebar.classList.contains('mobile-open')
+            );
+        }
+    }
+
+
+    function closeAdminSidebar() {
+
+        const sidebar =
+            document.getElementById('adminSidebar');
+
+        const overlay =
+            document.getElementById('adminSidebarOverlay');
+
+        if (sidebar) {
+            sidebar.classList.remove('mobile-open');
+        }
+
+        if (overlay) {
+            overlay.classList.remove('mobile-open');
+        }
+    }
+
+
+    /* =========================================================
+       CLOSE SIDEBAR WHEN A LINK IS CLICKED ON MOBILE
+       ========================================================= */
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document
+            .querySelectorAll('.student-sidebar .sidebar-link')
+            .forEach(function (link) {
+
+                link.addEventListener('click', function () {
+                    closeMobileSidebar();
+                });
+
+            });
+
+
+        document
+            .querySelectorAll('.admin-sidebar .sidebar-link')
+            .forEach(function (link) {
+
+                link.addEventListener('click', function () {
+                    closeAdminSidebar();
+                });
+
+            });
+
+    });
+
+</script>
 
 
 </body>
 
 </html>
-```
