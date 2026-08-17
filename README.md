@@ -46,7 +46,7 @@ cd online-quiz-platform
 mvn spring-boot:run
 ```
 
-The app starts on **http://localhost:8080**.
+The app starts on **https://quiz-web-application-kl7g.onrender.com**.
 
 ### Default admin login
 
