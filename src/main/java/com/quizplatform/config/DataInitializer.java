@@ -15,15 +15,15 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final org.springframework.core.env.Environment env;
-
     @Override
     public void run(String... args) {
-        String adminUsername = env.getProperty("app.admin.username", "admin");
-        String adminPassword = env.getProperty("app.admin.password", "Admin@123");
-        String adminEmail = env.getProperty("app.admin.email", "admin@quizplatform.com");
+
+        String adminUsername = "admin";
+        String adminPassword = "Admin@123";
+        String adminEmail = "admin@quizplatform.com";
 
         if (!userRepository.existsByUsername(adminUsername)) {
+
             User admin = new User(
                     adminUsername,
                     passwordEncoder.encode(adminPassword),
@@ -31,12 +31,17 @@ public class DataInitializer implements CommandLineRunner {
                     "Boss",
                     Role.ADMIN
             );
+
             userRepository.save(admin);
+
             System.out.println("==============================================");
             System.out.println("Default admin account created:");
             System.out.println("   username: " + adminUsername);
             System.out.println("   password: " + adminPassword);
             System.out.println("==============================================");
+
+        } else {
+            System.out.println("Admin account already exists.");
         }
     }
 }
