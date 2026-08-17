@@ -3,28 +3,24 @@
     --qp-primary-dark: #4338ca;
     --qp-success: #16a34a;
     --qp-danger: #dc2626;
-    --qp-warning: #f59e0b;
     --qp-bg: #f4f5fb;
-    --qp-sidebar: #111827;
-    --qp-sidebar-hover: #1f2937;
-    --qp-text: #1f2937;
-    --qp-muted: #6b7280;
-    --qp-border: #e5e7eb;
+    --qp-sidebar-width: 250px;
 }
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     margin: 0;
+    min-height: 100vh;
     background-color: var(--qp-bg);
-    color: var(--qp-text);
-    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1f2937;
 }
 
 a {
@@ -36,23 +32,16 @@ a {
     letter-spacing: -0.5px;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
 .btn-primary {
     background-color: var(--qp-primary);
     border-color: var(--qp-primary);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
     background-color: var(--qp-primary-dark);
     border-color: var(--qp-primary-dark);
 }
-
-/* =========================================================
-   CARDS
-   ========================================================= */
 
 .card {
     border: none;
@@ -76,7 +65,7 @@ a {
 }
 
 .stat-card .stat-label {
-    opacity: 0.9;
+    opacity: 0.85;
     font-size: 0.9rem;
 }
 
@@ -97,7 +86,7 @@ a {
 }
 
 /* =========================================================
-   AUTH
+   AUTH / LOGIN
    ========================================================= */
 
 .auth-wrapper {
@@ -145,7 +134,7 @@ a {
 }
 
 /* =========================================================
-   QUESTION CARDS
+   QUESTIONS
    ========================================================= */
 
 .question-card {
@@ -182,10 +171,6 @@ input[type="radio"]:checked + .option-label,
     letter-spacing: 0.5px;
 }
 
-/* =========================================================
-   TABLE
-   ========================================================= */
-
 table.table thead {
     background-color: #f0f1fb;
 }
@@ -202,27 +187,34 @@ table.table thead {
     background: linear-gradient(90deg, #fde3cc, transparent);
 }
 
+
 /* =========================================================
-   STUDENT SIDEBAR
+   =========================================================
+   STUDENT / ADMIN SIDEBAR
+   =========================================================
    ========================================================= */
 
-.student-sidebar {
+.student-sidebar,
+.admin-sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
-    height: 100vh;
+    bottom: 0;
 
-    background: #111827;
-    color: #ffffff;
+    width: var(--qp-sidebar-width);
+
+    background: #ffffff;
+
+    border-right: 1px solid #e5e7eb;
 
     display: flex;
     flex-direction: column;
 
-    z-index: 1000;
+    z-index: 1040;
 
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 0 12px rgba(20, 20, 43, 0.05);
 }
+
 
 /* =========================================================
    SIDEBAR BRAND
@@ -234,26 +226,35 @@ table.table thead {
     display: flex;
     align-items: center;
 
-    padding: 0 24px;
+    padding: 0 22px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid #eeeeee;
+
+    flex-shrink: 0;
 }
 
 .sidebar-brand-link {
     display: flex;
     align-items: center;
-
     gap: 10px;
 
-    color: #ffffff;
+    color: #1f2937;
 
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
+
+    width: 100%;
 }
 
 .sidebar-brand-link i {
     font-size: 1.5rem;
+    color: var(--qp-primary);
 }
+
+.sidebar-brand-link:hover {
+    color: var(--qp-primary);
+}
+
 
 /* =========================================================
    SIDEBAR MENU
@@ -262,34 +263,41 @@ table.table thead {
 .sidebar-menu {
     flex: 1;
 
-    padding: 20px 12px;
+    padding: 20px 14px;
+
+    overflow-y: auto;
 }
 
 .sidebar-link {
-    width: 100%;
-
     display: flex;
     align-items: center;
 
-    gap: 14px;
+    width: 100%;
 
-    padding: 12px 16px;
+    gap: 13px;
+
+    padding: 12px 14px;
 
     margin-bottom: 6px;
 
-    border: none;
     border-radius: 10px;
+
+    border: none;
 
     background: transparent;
 
-    color: #d1d5db;
+    color: #4b5563;
 
     font-size: 0.95rem;
+
     font-weight: 500;
 
     text-align: left;
 
-    transition: all 0.2s ease;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
 
     cursor: pointer;
 }
@@ -297,78 +305,96 @@ table.table thead {
 .sidebar-link i {
     width: 22px;
 
-    font-size: 1.1rem;
-
     text-align: center;
+
+    font-size: 1.1rem;
 }
 
 .sidebar-link:hover {
-    background: var(--qp-sidebar-hover);
-    color: #ffffff;
+    background-color: #eef0fd;
+    color: var(--qp-primary);
 }
 
 .sidebar-link:active {
     transform: scale(0.98);
 }
 
+
 /* =========================================================
    ACTIVE SIDEBAR LINK
    ========================================================= */
 
-.student-sidebar .sidebar-link[href="/student/dashboard"] {
-    background: #4338ca;
-    color: #ffffff;
+.student-sidebar .sidebar-link[href="/student/dashboard"],
+.student-sidebar .sidebar-link[href="/student/quizzes"],
+.student-sidebar .sidebar-link[href="/student/history"],
+.student-sidebar .sidebar-link[href="/leaderboard"],
+.student-sidebar .sidebar-link[href="/student/profile"] {
+    /* Normal state */
 }
 
 /*
-   When using JavaScript or Thymeleaf active classes later,
-   .active can be used directly.
+   Add the "active" class from Thymeleaf later if desired.
 */
 
 .sidebar-link.active {
-    background: #4338ca;
-    color: #ffffff;
+    background-color: #eef0fd;
+    color: var(--qp-primary);
+    font-weight: 600;
 }
 
+
 /* =========================================================
-   SIDEBAR BOTTOM
+   SIDEBAR LOGOUT
    ========================================================= */
 
 .sidebar-bottom {
-    padding: 16px 12px;
+    padding: 14px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid #eeeeee;
+
+    flex-shrink: 0;
 }
 
 .sidebar-logout {
-    color: #fca5a5;
+    color: #dc2626;
+    margin-bottom: 0;
 }
 
 .sidebar-logout:hover {
-    background: rgba(220, 38, 38, 0.15);
-    color: #fecaca;
+    background-color: #fef2f2;
+    color: #b91c1c;
 }
 
+
 /* =========================================================
-   STUDENT MAIN CONTENT
+   STUDENT DASHBOARD
    ========================================================= */
 
-.student-main {
-    margin-left: 250px;
+.student-dashboard {
+    overflow-x: hidden;
+}
 
+.student-main {
     min-height: 100vh;
 
-    padding: 32px;
+    margin-left: var(--qp-sidebar-width);
+
+    width: calc(100% - var(--qp-sidebar-width));
+
+    padding: 30px;
+
+    box-sizing: border-box;
 }
 
 .dashboard-container {
-    max-width: 1400px;
-
+    width: 100%;
+    max-width: 1500px;
     margin: 0 auto;
 }
 
+
 /* =========================================================
-   WELCOME
+   WELCOME SECTION
    ========================================================= */
 
 .welcome-section {
@@ -379,18 +405,15 @@ table.table thead {
     color: #111827;
 }
 
-.welcome-section p {
-    color: var(--qp-muted);
-}
 
 /* =========================================================
-   STATISTICS GRID
+   DASHBOARD STATISTICS
    ========================================================= */
 
 .stats-grid {
     display: grid;
 
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
 
     gap: 16px;
 
@@ -398,23 +421,22 @@ table.table thead {
 }
 
 .stats-grid .stat-card {
-    min-height: 120px;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
+    min-width: 0;
 }
 
+
 /* =========================================================
-   SECTION HEADER
+   DASHBOARD SECTION HEADER
    ========================================================= */
 
 .section-header {
     display: flex;
 
-    justify-content: space-between;
     align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
 
     margin-bottom: 16px;
 }
@@ -422,12 +444,18 @@ table.table thead {
 .section-header h4 {
     margin: 0;
 
-    font-size: 1.25rem;
+    font-size: 1.2rem;
 
     font-weight: 700;
 }
 
 .view-all-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
     color: var(--qp-primary);
 
     font-size: 0.9rem;
@@ -439,59 +467,52 @@ table.table thead {
     color: var(--qp-primary-dark);
 }
 
+
 /* =========================================================
-   QUIZ GRID
+   DASHBOARD QUIZ GRID
    ========================================================= */
 
 .quiz-grid {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
-    gap: 20px;
+    gap: 18px;
 
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
-/* =========================================================
-   QUIZ CARD
-   ========================================================= */
-
 .quiz-card {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
     background: #ffffff;
 
-    border-radius: 16px;
+    border-radius: 14px;
 
     overflow: hidden;
 
-    border: 1px solid var(--qp-border);
+    box-shadow: 0 2px 10px rgba(20, 20, 43, 0.06);
 
-    box-shadow: 0 3px 12px rgba(20, 20, 43, 0.06);
-
-    display: flex;
-    flex-direction: column;
-
-    transition: transform 0.2s ease,
-                box-shadow 0.2s ease;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 .quiz-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 
-    box-shadow: 0 8px 25px rgba(20, 20, 43, 0.12);
+    box-shadow: 0 7px 20px rgba(20, 20, 43, 0.10);
 }
-
-/* =========================================================
-   QUIZ THUMBNAIL
-   ========================================================= */
 
 .quiz-thumbnail {
     width: 100%;
     height: 150px;
 
     overflow: hidden;
-
-    background: #eef0fd;
 }
 
 .quiz-thumbnail img {
@@ -501,106 +522,88 @@ table.table thead {
     object-fit: cover;
 }
 
-/* =========================================================
-   QUIZ BODY
-   ========================================================= */
-
 .quiz-body {
-    padding: 20px;
-
     display: flex;
+
     flex-direction: column;
 
     flex: 1;
+
+    padding: 18px;
 }
 
 .quiz-category {
     color: var(--qp-primary);
 
-    font-size: 0.75rem;
+    font-size: 0.78rem;
 
-    font-weight: 700;
+    font-weight: 600;
 
     text-transform: uppercase;
 
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
 
     margin-bottom: 6px;
 }
 
 .quiz-title {
-    font-size: 1.1rem;
-
     font-weight: 700;
 
     margin-bottom: 8px;
 
-    color: #111827;
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
 }
 
 .quiz-description {
-    color: var(--qp-muted);
+    color: #6b7280;
 
-    font-size: 0.88rem;
+    font-size: 0.9rem;
 
     line-height: 1.5;
 
-    margin-bottom: 16px;
+    margin-bottom: 15px;
 
-    display: -webkit-box;
-
-    -webkit-line-clamp: 2;
-
-    -webkit-box-orient: vertical;
-
-    overflow: hidden;
+    overflow-wrap: anywhere;
 }
-
-/* =========================================================
-   QUIZ DETAILS
-   ========================================================= */
 
 .quiz-details {
     display: flex;
 
     flex-wrap: wrap;
 
-    gap: 12px;
+    gap: 10px 16px;
 
-    color: var(--qp-muted);
+    color: #6b7280;
 
-    font-size: 0.78rem;
+    font-size: 0.8rem;
 
     margin-bottom: 18px;
 }
 
 .quiz-details span {
-    display: flex;
+    display: inline-flex;
 
     align-items: center;
 
     gap: 4px;
 }
 
-.quiz-details i {
-    color: var(--qp-primary);
-}
-
-/* =========================================================
-   START QUIZ BUTTON
-   ========================================================= */
-
 .start-quiz-btn {
     display: flex;
 
-    justify-content: center;
     align-items: center;
 
-    gap: 8px;
+    justify-content: center;
+
+    gap: 6px;
 
     width: 100%;
 
     padding: 10px 14px;
+
+    margin-top: auto;
 
     border-radius: 9px;
 
@@ -608,13 +611,9 @@ table.table thead {
 
     color: #ffffff;
 
-    font-size: 0.9rem;
-
     font-weight: 600;
 
-    margin-top: auto;
-
-    transition: background 0.2s ease;
+    transition: background-color 0.15s ease;
 }
 
 .start-quiz-btn:hover {
@@ -623,6 +622,7 @@ table.table thead {
     color: #ffffff;
 }
 
+
 /* =========================================================
    NO QUIZZES
    ========================================================= */
@@ -630,34 +630,29 @@ table.table thead {
 .no-quizzes {
     grid-column: 1 / -1;
 
-    background: #ffffff;
+    padding: 50px 20px;
 
-    border: 1px solid var(--qp-border);
+    background: #ffffff;
 
     border-radius: 14px;
 
-    padding: 50px 20px;
-
     text-align: center;
 
-    color: var(--qp-muted);
+    color: #6b7280;
 }
 
 .no-quizzes i {
-    font-size: 3rem;
-
-    color: #9ca3af;
-
     display: block;
 
-    margin-bottom: 12px;
+    font-size: 3rem;
+
+    margin-bottom: 15px;
 }
 
 .no-quizzes h5 {
     color: #374151;
-
-    font-weight: 700;
 }
+
 
 /* =========================================================
    RECENT RESULTS
@@ -672,13 +667,11 @@ table.table thead {
 
     border-radius: 14px;
 
-    border: 1px solid var(--qp-border);
-
-    box-shadow: 0 3px 12px rgba(20, 20, 43, 0.05);
+    box-shadow: 0 2px 10px rgba(20, 20, 43, 0.06);
 
     overflow: hidden;
 
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .results-table {
@@ -689,57 +682,41 @@ table.table thead {
     border-collapse: collapse;
 }
 
-.results-table thead {
-    background: #f8f8fc;
-}
-
 .results-table th {
-    padding: 14px 18px;
-
-    color: #6b7280;
-
-    font-size: 0.78rem;
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.3px;
-
-    border-bottom: 1px solid var(--qp-border);
-}
-
-.results-table td {
-    padding: 15px 18px;
+    background: #f0f1fb;
 
     color: #374151;
 
-    font-size: 0.88rem;
+    font-size: 0.85rem;
 
-    border-bottom: 1px solid #f0f0f4;
+    font-weight: 600;
+
+    padding: 14px 16px;
+
+    text-align: left;
+
+    white-space: nowrap;
 }
 
-.results-table tbody tr:last-child td {
-    border-bottom: none;
+.results-table td {
+    padding: 14px 16px;
+
+    border-top: 1px solid #f0f0f0;
+
+    font-size: 0.9rem;
 }
 
 .results-table tbody tr:hover {
     background: #fafaff;
 }
 
-/* =========================================================
-   RESULT BADGES
-   ========================================================= */
-
 .result-badge,
 .status-badge {
-    display: inline-flex;
-
-    align-items: center;
+    display: inline-block;
 
     padding: 5px 9px;
 
-    border-radius: 999px;
+    border-radius: 6px;
 
     font-size: 0.75rem;
 
@@ -749,19 +726,21 @@ table.table thead {
 .result-badge.passed {
     background: #dcfce7;
 
-    color: #166534;
+    color: #15803d;
 }
 
 .result-badge.failed {
     background: #fee2e2;
 
-    color: #991b1b;
+    color: #b91c1c;
 }
 
 .status-badge.submitted {
     background: #f3f4f6;
 
     color: #374151;
+
+    border: 1px solid #e5e7eb;
 }
 
 .status-badge.expired {
@@ -770,22 +749,18 @@ table.table thead {
     color: #92400e;
 }
 
-/* =========================================================
-   VIEW RESULT
-   ========================================================= */
-
 .view-result-btn {
     display: inline-block;
 
-    padding: 6px 12px;
+    padding: 5px 10px;
 
     border: 1px solid var(--qp-primary);
 
-    border-radius: 7px;
+    border-radius: 6px;
 
     color: var(--qp-primary);
 
-    font-size: 0.78rem;
+    font-size: 0.8rem;
 
     font-weight: 600;
 }
@@ -796,112 +771,346 @@ table.table thead {
     color: #ffffff;
 }
 
-/* =========================================================
-   EMPTY RESULTS
-   ========================================================= */
-
 .empty-results {
     text-align: center;
 
-    padding: 45px 20px !important;
+    color: #6b7280;
 
-    color: var(--qp-muted) !important;
+    padding: 40px !important;
 }
 
 .empty-results i {
     display: block;
 
-    font-size: 2.5rem;
+    font-size: 2rem;
 
-    margin-bottom: 10px;
-
-    color: #9ca3af;
+    margin-bottom: 8px;
 }
 
+
 /* =========================================================
-   ADMIN SIDEBAR
+   =========================================================
+   AVAILABLE QUIZZES PAGE
+   =========================================================
    ========================================================= */
 
-.admin-sidebar {
+.quiz-layout {
+    display: flex;
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    position: relative;
+
+    overflow-x: hidden;
+}
+
+
+/*
+   Sidebar remains fixed on the left.
+   Main content reserves the sidebar width.
+*/
+
+.quiz-layout .student-sidebar {
     position: fixed;
 
     top: 0;
     left: 0;
+    bottom: 0;
 
-    width: 250px;
-    height: 100vh;
+    width: var(--qp-sidebar-width);
 
-    background: #111827;
+    min-width: var(--qp-sidebar-width);
 
-    color: #ffffff;
-
-    display: flex;
-    flex-direction: column;
-
-    z-index: 1000;
-
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
 }
 
-.admin-sidebar .sidebar-link.active {
-    background: #4338ca;
-    color: #ffffff;
-}
 
 /* =========================================================
-   LOGIN / OLD NAVBAR COMPATIBILITY
+   QUIZ MAIN CONTENT
    ========================================================= */
 
-.navbar {
-    position: relative;
-    z-index: 10;
+.quiz-main {
+    min-height: 100vh;
+
+    width: calc(100% - var(--qp-sidebar-width));
+
+    margin-left: var(--qp-sidebar-width);
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    min-width: 0;
 }
 
+
 /* =========================================================
-   MOBILE
+   QUIZ PAGE HEADER
+   ========================================================= */
+
+.quiz-main .page-header {
+    width: 100%;
+}
+
+.quiz-main .page-header h3 {
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   SEARCH / FILTER CARD
+   ========================================================= */
+
+.quiz-main form.card {
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow: hidden;
+}
+
+.quiz-main form.card .row {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-left: 0;
+
+    margin-right: 0;
+}
+
+
+/* =========================================================
+   AVAILABLE QUIZ GRID
+   ========================================================= */
+
+.quiz-main > .row {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-left: 0;
+
+    margin-right: 0;
+}
+
+.quiz-main > .row > [class*="col-"] {
+    min-width: 0;
+}
+
+.quiz-main .card {
+    min-width: 0;
+
+    max-width: 100%;
+
+    overflow: hidden;
+}
+
+.quiz-main .card h5 {
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
+}
+
+.quiz-main .card p {
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
+}
+
+.quiz-main .card img {
+    display: block;
+
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   QUIZ CARD DETAILS
+   ========================================================= */
+
+.quiz-main .card .d-flex {
+    min-width: 0;
+
+    max-width: 100%;
+}
+
+.quiz-main .card .d-flex span {
+    overflow-wrap: break-word;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   QUIZ BUTTON
+   ========================================================= */
+
+.quiz-main .card .btn {
+    max-width: 100%;
+
+    white-space: normal;
+}
+
+
+/* =========================================================
+   =========================================================
+   RESPONSIVE DESIGN
+   =========================================================
+   ========================================================= */
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (max-width: 1400px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .quiz-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   DESKTOP / TABLET
    ========================================================= */
 
 @media (max-width: 1200px) {
 
-    .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .student-main {
+        padding: 25px;
+    }
+
+    .quiz-main {
+        padding: 25px;
     }
 
     .quiz-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 768px) {
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
 
     .student-sidebar,
     .admin-sidebar {
-        width: 220px;
-        transform: translateX(-100%);
+        width: 230px;
 
-        transition: transform 0.25s ease;
+        transform: translateX(0);
     }
 
-    .student-main {
-        margin-left: 0;
+    .student-main,
+    .quiz-main {
+        width: calc(100% - 230px);
 
-        padding: 20px 16px;
+        margin-left: 230px;
+
+        padding: 20px;
+    }
+
+    .quiz-layout .student-sidebar {
+        width: 230px;
+
+        min-width: 230px;
+    }
+
+    .quiz-main {
+        width: calc(100% - 230px);
+
+        margin-left: 230px;
     }
 
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   SMALL TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .student-main,
+    .quiz-main {
+        padding: 18px;
     }
 
     .quiz-grid {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-container {
-        width: 100%;
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-header {
+        align-items: flex-start;
+    }
+
+    .results-card {
+        overflow-x: auto;
+    }
+
+    .results-table {
+        min-width: 700px;
     }
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 576px) {
+
+    .student-sidebar,
+    .admin-sidebar {
+        width: 230px;
+    }
+
+    .student-main,
+    .quiz-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 15px;
+    }
+
+    /*
+       On small screens the sidebar can overlay when opened.
+       The page itself remains full width.
+    */
+
+    .quiz-layout .student-sidebar {
+        width: 230px;
+
+        min-width: 230px;
+    }
+
+    .quiz-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 15px;
+    }
 
     .stats-grid {
         grid-template-columns: 1fr;
@@ -916,20 +1125,42 @@ table.table thead {
     }
 
     .section-header {
+        flex-direction: column;
+
         align-items: flex-start;
-
-        gap: 10px;
     }
 
-    .section-header h4 {
-        font-size: 1.1rem;
+    .quiz-details {
+        gap: 8px 12px;
     }
 
-    .results-table {
-        min-width: 700px;
+    .quiz-main form.card {
+        padding: 15px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .student-main,
+    .quiz-main {
+        padding: 12px;
     }
 
-    .welcome-section h2 {
-        font-size: 1.5rem;
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .quiz-body {
+        padding: 15px;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 10px;
     }
 }
