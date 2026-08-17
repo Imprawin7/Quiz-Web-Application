@@ -1,7 +1,32 @@
+# Maven
 target/
+.mvn/timing.properties
+
+# Spring Boot / local data
 data/
+*.log
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Java
 *.class
+
+# IDE
 .idea/
 *.iml
 .vscode/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local configuration
+application-local.properties
+application-dev.properties
