@@ -1,6 +1,6 @@
-package com.quizplatform.config;
+package com.Quizvera.config;
 
-import com.quizplatform.service.UserDetailsServiceImpl;
+import com.Quizvera.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,7 @@
-package com.quizplatform.controller;
+package com.Quizvera.controller;
 
-import com.quizplatform.service.PasswordResetService;
-import com.quizplatform.service.UserService;
+import com.Quizvera.service.PasswordResetService;
+import com.Quizvera.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

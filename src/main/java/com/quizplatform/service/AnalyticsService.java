@@ -1,11 +1,11 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.AttemptStatus;
-import com.quizplatform.model.Quiz;
-import com.quizplatform.model.QuizAttempt;
-import com.quizplatform.model.QuizStatus;
-import com.quizplatform.model.User;
-import com.quizplatform.repository.QuizAttemptRepository;
+import com.Quizvera.model.AttemptStatus;
+import com.Quizvera.model.Quiz;
+import com.Quizvera.model.QuizAttempt;
+import com.Quizvera.model.QuizStatus;
+import com.Quizvera.model.User;
+import com.Quizvera.repository.QuizAttemptRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

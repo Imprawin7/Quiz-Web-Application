@@ -1,7 +1,7 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.Category;
-import com.quizplatform.repository.CategoryRepository;
+import com.Quizvera.model.Category;
+import com.Quizvera.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

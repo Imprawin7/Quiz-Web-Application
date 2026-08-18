@@ -1,4 +1,4 @@
-package com.quizplatform.model;
+package com.Quizvera.model;
 
 public enum QuizStatus {
     DRAFT,

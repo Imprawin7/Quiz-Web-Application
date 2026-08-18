@@ -1,7 +1,7 @@
-package com.quizplatform.repository;
+package com.Quizvera.repository;
 
-import com.quizplatform.model.QuizAttempt;
-import com.quizplatform.model.StudentAnswer;
+import com.Quizvera.model.QuizAttempt;
+import com.Quizvera.model.StudentAnswer;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

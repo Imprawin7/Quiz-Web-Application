@@ -1,7 +1,7 @@
-package com.quizplatform.repository;
+package com.Quizvera.repository;
 
-import com.quizplatform.model.Role;
-import com.quizplatform.model.User;
+import com.Quizvera.model.Role;
+import com.Quizvera.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

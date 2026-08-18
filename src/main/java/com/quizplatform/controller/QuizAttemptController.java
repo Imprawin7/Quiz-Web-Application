@@ -1,8 +1,8 @@
-package com.quizplatform.controller;
+package com.Quizvera.controller;
 
-import com.quizplatform.model.*;
-import com.quizplatform.repository.CategoryRepository;
-import com.quizplatform.service.*;
+import com.Quizvera.model.*;
+import com.Quizvera.repository.CategoryRepository;
+import com.Quizvera.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

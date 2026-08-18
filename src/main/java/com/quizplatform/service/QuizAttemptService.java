@@ -1,8 +1,8 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.*;
-import com.quizplatform.repository.QuizAttemptRepository;
-import com.quizplatform.repository.StudentAnswerRepository;
+import com.Quizvera.model.*;
+import com.Quizvera.repository.QuizAttemptRepository;
+import com.Quizvera.repository.StudentAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

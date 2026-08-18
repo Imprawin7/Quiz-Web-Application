@@ -1,9 +1,9 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.PasswordResetToken;
-import com.quizplatform.model.User;
-import com.quizplatform.repository.PasswordResetTokenRepository;
-import com.quizplatform.repository.UserRepository;
+import com.Quizvera.model.PasswordResetToken;
+import com.Quizvera.model.User;
+import com.Quizvera.repository.PasswordResetTokenRepository;
+import com.Quizvera.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;

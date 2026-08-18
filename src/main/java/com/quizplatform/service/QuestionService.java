@@ -1,9 +1,9 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.Difficulty;
-import com.quizplatform.model.Question;
-import com.quizplatform.model.Quiz;
-import com.quizplatform.repository.QuestionRepository;
+import com.Quizvera.model.Difficulty;
+import com.Quizvera.model.Question;
+import com.Quizvera.model.Quiz;
+import com.Quizvera.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

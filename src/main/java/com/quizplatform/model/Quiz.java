@@ -1,4 +1,4 @@
-package com.quizplatform.model;
+package com.Quizvera.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;

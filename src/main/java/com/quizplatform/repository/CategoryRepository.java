@@ -1,6 +1,6 @@
-package com.quizplatform.repository;
+package com.Quizvera.repository;
 
-import com.quizplatform.model.Category;
+import com.Quizvera.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

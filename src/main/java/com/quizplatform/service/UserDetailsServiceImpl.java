@@ -1,7 +1,7 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.User;
-import com.quizplatform.repository.UserRepository;
+import com.Quizvera.model.User;
+import com.Quizvera.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

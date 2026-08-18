@@ -1,5 +1,5 @@
 
-package com.quizplatform.model;
+package com.Quizvera.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

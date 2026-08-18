@@ -1,8 +1,8 @@
-package com.quizplatform.service;
+package com.Quizvera.service;
 
-import com.quizplatform.model.Role;
-import com.quizplatform.model.User;
-import com.quizplatform.repository.UserRepository;
+import com.Quizvera.model.Role;
+import com.Quizvera.model.User;
+import com.Quizvera.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

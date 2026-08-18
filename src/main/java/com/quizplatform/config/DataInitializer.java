@@ -1,8 +1,8 @@
-package com.quizplatform.config;
+package com.Quizvera.config;
 
-import com.quizplatform.model.Role;
-import com.quizplatform.model.User;
-import com.quizplatform.repository.UserRepository;
+import com.Quizvera.model.Role;
+import com.Quizvera.model.User;
+import com.Quizvera.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +20,7 @@ public class DataInitializer implements CommandLineRunner {
 
         String adminUsername = "admin";
         String adminPassword = "Admin@123";
-        String adminEmail = "admin@quizplatform.com";
+        String adminEmail = "admin@Quizvera.com";
 
         if (!userRepository.existsByUsername(adminUsername)) {
 

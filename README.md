@@ -76,8 +76,8 @@ your MySQL server details and the app will auto-create the schema (`ddl-auto=upd
 ## Project structure
 
 ```
-src/main/java/com/quizplatform/
-├── QuizPlatformApplication.java     # entry point
+src/main/java/com/Quizvera/
+├── QuizveraApplication.java     # entry point
 ├── config/
 │   ├── SecurityConfig.java          # auth rules, password encoder, login/logout
 │   └── DataInitializer.java         # seeds the default admin account

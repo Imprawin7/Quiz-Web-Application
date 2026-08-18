@@ -1,12 +1,12 @@
-package com.quizplatform;
+package com.Quizvera;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuizPlatformApplication {
+public class QuizveraApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QuizPlatformApplication.class, args);
+        SpringApplication.run(QuizveraApplication.class, args);
     }
 }
