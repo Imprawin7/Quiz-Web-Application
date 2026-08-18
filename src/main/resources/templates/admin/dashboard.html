@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -33,10 +32,54 @@
 
 
 <!-- =========================================================
+     MOBILE HEADER
+     ========================================================= -->
+
+<header class="mobile-dashboard-header">
+
+    <button type="button"
+            class="mobile-menu-btn"
+            id="adminMenuToggle"
+            aria-label="Open navigation menu"
+            aria-controls="adminSidebar"
+            aria-expanded="false">
+
+        <i class="bi bi-list"></i>
+
+    </button>
+
+
+    <a href="/admin/dashboard"
+       class="mobile-brand">
+
+        <i class="bi bi-patch-question-fill"></i>
+
+        <span>QuizPlatform</span>
+
+    </a>
+
+</header>
+
+
+<!-- =========================================================
      ADMIN SIDEBAR
      ========================================================= -->
 
-<aside th:replace="~{fragments :: sidebar-admin}"></aside>
+<div id="adminSidebar"
+     class="admin-sidebar-wrapper">
+
+    <div th:replace="~{fragments :: sidebar-admin}"></div>
+
+</div>
+
+
+<!-- =========================================================
+     MOBILE OVERLAY
+     ========================================================= -->
+
+<div class="sidebar-overlay"
+     id="adminSidebarOverlay">
+</div>
 
 
 <!-- =========================================================
@@ -52,14 +95,14 @@
              WELCOME
              ===================================================== -->
 
-        <div class="welcome-section">
+        <section class="welcome-section">
 
             <h3 class="fw-bold mb-1">
 
                 Welcome back,
 
                 <span th:text="${admin.fullName}">
-                    Boss
+                    Admin
                 </span>
 
             </h3>
@@ -68,399 +111,359 @@
                 Here's what's happening on your quiz platform.
             </p>
 
-        </div>
+        </section>
 
 
         <!-- =====================================================
-             STAT CARDS
+             STATISTICS
              ===================================================== -->
 
-        <div class="row g-3 mb-4">
+        <section class="admin-stats-grid">
 
 
-            <!-- Total Students -->
+            <!-- TOTAL STUDENTS -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-purple">
 
-                <div class="stat-card bg-grad-purple">
+                <div class="stat-value"
+                     th:text="${stats.totalStudents}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalStudents}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-people-fill me-1"></i>
 
-                        <i class="bi bi-people-fill me-1"></i>
-
-                        Total Students
-
-                    </div>
+                    Total Students
 
                 </div>
 
             </div>
 
 
-            <!-- Total Quizzes -->
+            <!-- TOTAL QUIZZES -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-blue">
 
-                <div class="stat-card bg-grad-blue">
+                <div class="stat-value"
+                     th:text="${stats.totalQuizzes}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalQuizzes}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-journal-text me-1"></i>
 
-                        <i class="bi bi-journal-text me-1"></i>
-
-                        Total Quizzes
-
-                    </div>
+                    Total Quizzes
 
                 </div>
 
             </div>
 
 
-            <!-- Published Quizzes -->
+            <!-- PUBLISHED QUIZZES -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-green">
 
-                <div class="stat-card bg-grad-green">
+                <div class="stat-value"
+                     th:text="${stats.publishedQuizzes}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.publishedQuizzes}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-broadcast me-1"></i>
 
-                        <i class="bi bi-broadcast me-1"></i>
-
-                        Published Quizzes
-
-                    </div>
+                    Published Quizzes
 
                 </div>
 
             </div>
 
 
-            <!-- Draft Quizzes -->
+            <!-- DRAFT QUIZZES -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-orange">
 
-                <div class="stat-card bg-grad-orange">
+                <div class="stat-value"
+                     th:text="${stats.draftQuizzes}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.draftQuizzes}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-file-earmark-text me-1"></i>
 
-                        <i class="bi bi-file-earmark-text me-1"></i>
-
-                        Draft Quizzes
-
-                    </div>
+                    Draft Quizzes
 
                 </div>
 
             </div>
 
 
-            <!-- Total Questions -->
+            <!-- TOTAL QUESTIONS -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-purple">
 
-                <div class="stat-card bg-grad-purple">
+                <div class="stat-value"
+                     th:text="${stats.totalQuestions}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalQuestions}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-question-circle me-1"></i>
 
-                        <i class="bi bi-question-circle me-1"></i>
-
-                        Total Questions
-
-                    </div>
+                    Total Questions
 
                 </div>
 
             </div>
 
 
-            <!-- Total Attempts -->
+            <!-- TOTAL ATTEMPTS -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-blue">
 
-                <div class="stat-card bg-grad-blue">
+                <div class="stat-value"
+                     th:text="${stats.totalAttempts}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalAttempts}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-clipboard-check me-1"></i>
 
-                        <i class="bi bi-clipboard-check me-1"></i>
-
-                        Total Attempts
-
-                    </div>
+                    Total Attempts
 
                 </div>
 
             </div>
 
 
-            <!-- Average Score -->
+            <!-- AVERAGE SCORE -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-green">
 
-                <div class="stat-card bg-grad-green">
+                <div class="stat-value"
+                     th:text="${stats.averageScore} + '%'">
+                    0%
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.averageScore} + '%'">
-                        0%
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-bar-chart me-1"></i>
 
-                        <i class="bi bi-bar-chart me-1"></i>
-
-                        Average Score
-
-                    </div>
+                    Average Score
 
                 </div>
 
             </div>
 
 
-            <!-- Passed Attempts -->
+            <!-- PASSED ATTEMPTS -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-green">
 
-                <div class="stat-card bg-grad-green">
+                <div class="stat-value"
+                     th:text="${stats.totalPassed}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalPassed}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-check-circle me-1"></i>
 
-                        <i class="bi bi-check-circle me-1"></i>
-
-                        Passed Attempts
-
-                    </div>
+                    Passed Attempts
 
                 </div>
 
             </div>
 
 
-            <!-- Failed Attempts -->
+            <!-- FAILED ATTEMPTS -->
 
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="stat-card bg-grad-orange">
 
-                <div class="stat-card bg-grad-orange">
+                <div class="stat-value"
+                     th:text="${stats.totalFailed}">
+                    0
+                </div>
 
-                    <div class="stat-value"
-                         th:text="${stats.totalFailed}">
-                        0
-                    </div>
+                <div class="stat-label">
 
-                    <div class="stat-label">
+                    <i class="bi bi-x-circle me-1"></i>
 
-                        <i class="bi bi-x-circle me-1"></i>
-
-                        Failed Attempts
-
-                    </div>
+                    Failed Attempts
 
                 </div>
 
             </div>
 
-        </div>
+
+        </section>
 
 
         <!-- =====================================================
-             DASHBOARD ANALYTICS
+             DASHBOARD ANALYTICS TITLE
              ===================================================== -->
 
-        <h5 class="fw-bold mb-3">
+        <section class="admin-section-title">
 
-            <i class="bi bi-graph-up me-2"></i>
+            <i class="bi bi-graph-up"></i>
 
-            Dashboard Analytics
+            <span>
+                Dashboard Analytics
+            </span>
 
-        </h5>
-
-
-        <div class="row g-3 mb-4">
-
-
-            <!-- Attempts Over Time -->
-
-            <div class="col-12 col-lg-6">
-
-                <div class="card p-3 h-100">
-
-                    <h6 class="fw-semibold mb-3">
-
-                        Quiz Attempts Over Time
-
-                        <small class="text-muted">
-                            (last 14 days)
-                        </small>
-
-                    </h6>
-
-                    <div class="admin-chart-container">
-
-                        <canvas id="attemptsOverTimeChart"></canvas>
-
-                    </div>
-
-                </div>
-
-            </div>
+        </section>
 
 
-            <!-- Registrations -->
+        <!-- =====================================================
+             ANALYTICS CHARTS
+             ===================================================== -->
 
-            <div class="col-12 col-lg-6">
+        <section class="admin-chart-grid">
 
-                <div class="card p-3 h-100">
 
-                    <h6 class="fw-semibold mb-3">
+            <!-- =================================================
+                 ATTEMPTS OVER TIME
+                 ================================================= -->
 
-                        Student Registrations
+            <div class="admin-chart-card">
 
-                        <small class="text-muted">
-                            (last 14 days)
-                        </small>
+                <h6>
 
-                    </h6>
+                    Quiz Attempts Over Time
 
-                    <div class="admin-chart-container">
+                    <small class="text-muted">
+                        (last 14 days)
+                    </small>
 
-                        <canvas id="registrationsChart"></canvas>
+                </h6>
 
-                    </div>
+                <div class="admin-chart-container">
+
+                    <canvas id="attemptsOverTimeChart"></canvas>
 
                 </div>
 
             </div>
 
 
-            <!-- Average Score -->
+            <!-- =================================================
+                 STUDENT REGISTRATIONS
+                 ================================================= -->
 
-            <div class="col-12 col-lg-6">
+            <div class="admin-chart-card">
 
-                <div class="card p-3 h-100">
+                <h6>
 
-                    <h6 class="fw-semibold mb-3">
-                        Average Quiz Scores
-                    </h6>
+                    Student Registrations
 
-                    <div class="admin-chart-container">
+                    <small class="text-muted">
+                        (last 14 days)
+                    </small>
 
-                        <canvas id="avgScoreChart"></canvas>
+                </h6>
 
-                    </div>
+                <div class="admin-chart-container">
 
-                </div>
-
-            </div>
-
-
-            <!-- Pass / Fail -->
-
-            <div class="col-12 col-lg-6">
-
-                <div class="card p-3 h-100">
-
-                    <h6 class="fw-semibold mb-3">
-                        Pass / Fail Ratio
-                    </h6>
-
-                    <div class="admin-chart-container admin-chart-small">
-
-                        <canvas id="passFailChart"></canvas>
-
-                    </div>
+                    <canvas id="registrationsChart"></canvas>
 
                 </div>
 
             </div>
 
 
-            <!-- Popular Quizzes -->
+            <!-- =================================================
+                 AVERAGE QUIZ SCORES
+                 ================================================= -->
 
-            <div class="col-12 col-lg-6">
+            <div class="admin-chart-card">
 
-                <div class="card p-3 h-100">
+                <h6>
+                    Average Quiz Scores
+                </h6>
 
-                    <h6 class="fw-semibold mb-3">
-                        Most Popular Quizzes
-                    </h6>
+                <div class="admin-chart-container">
 
-                    <div class="admin-chart-container">
-
-                        <canvas id="popularQuizzesChart"></canvas>
-
-                    </div>
+                    <canvas id="avgScoreChart"></canvas>
 
                 </div>
 
             </div>
 
 
-            <!-- Popular Categories -->
+            <!-- =================================================
+                 PASS / FAIL
+                 ================================================= -->
 
-            <div class="col-12 col-lg-6">
+            <div class="admin-chart-card">
 
-                <div class="card p-3 h-100">
+                <h6>
+                    Pass / Fail Ratio
+                </h6>
 
-                    <h6 class="fw-semibold mb-3">
-                        Most Popular Categories
-                    </h6>
+                <div class="admin-chart-container admin-chart-small">
 
-                    <div class="admin-chart-container">
-
-                        <canvas id="popularCategoriesChart"></canvas>
-
-                    </div>
+                    <canvas id="passFailChart"></canvas>
 
                 </div>
 
             </div>
 
-        </div>
+
+            <!-- =================================================
+                 POPULAR QUIZZES
+                 ================================================= -->
+
+            <div class="admin-chart-card">
+
+                <h6>
+                    Most Popular Quizzes
+                </h6>
+
+                <div class="admin-chart-container">
+
+                    <canvas id="popularQuizzesChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 POPULAR CATEGORIES
+                 ================================================= -->
+
+            <div class="admin-chart-card">
+
+                <h6>
+                    Most Popular Categories
+                </h6>
+
+                <div class="admin-chart-container">
+
+                    <canvas id="popularCategoriesChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+        </section>
 
 
         <!-- =====================================================
              RECENT QUIZZES HEADER
              ===================================================== -->
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <section class="section-header">
 
-            <h5 class="fw-bold mb-0">
+            <h4>
                 Recent Quizzes
-            </h5>
+            </h4>
 
             <a href="/admin/quizzes/new"
                class="btn btn-primary btn-sm">
@@ -471,14 +474,14 @@
 
             </a>
 
-        </div>
+        </section>
 
 
         <!-- =====================================================
-             RECENT QUIZZES TABLE
+             RECENT QUIZZES
              ===================================================== -->
 
-        <div class="card">
+        <section class="admin-recent-card">
 
             <div class="table-responsive">
 
@@ -510,32 +513,34 @@
                     <tbody>
 
 
-                    <!-- Quiz Rows -->
+                    <!-- QUIZ ROWS -->
 
                     <tr th:each="quiz, iter : ${quizzes}"
                         th:if="${iter.index < 5}">
 
 
-                        <!-- Title -->
+                        <!-- TITLE -->
 
                         <td class="fw-semibold"
                             th:text="${quiz.title}">
 
-                            Title
+                            Quiz Title
 
                         </td>
 
 
-                        <!-- Category -->
+                        <!-- CATEGORY -->
 
-                        <td th:text="${quiz.category != null ? quiz.category.name : '—'}">
+                        <td th:text="${quiz.category != null
+                                      ? quiz.category.name
+                                      : '—'}">
 
                             Category
 
                         </td>
 
 
-                        <!-- Difficulty -->
+                        <!-- DIFFICULTY -->
 
                         <td>
 
@@ -557,26 +562,30 @@
                         </td>
 
 
-                        <!-- Questions -->
+                        <!-- QUESTIONS -->
 
                         <td th:text="${quiz.questionCount}">
+
                             0
+
                         </td>
 
 
-                        <!-- Duration -->
+                        <!-- DURATION -->
 
                         <td th:text="${quiz.durationMinutes} + ' min'">
+
                             10 min
+
                         </td>
 
 
-                        <!-- Status -->
+                        <!-- STATUS -->
 
                         <td>
 
 
-                            <!-- Published -->
+                            <!-- PUBLISHED -->
 
                             <span th:if="${quiz.status == T(com.quizplatform.model.QuizStatus).PUBLISHED}"
                                   class="badge bg-success">
@@ -588,7 +597,7 @@
                             </span>
 
 
-                            <!-- Draft -->
+                            <!-- DRAFT -->
 
                             <span th:if="${quiz.status == T(com.quizplatform.model.QuizStatus).DRAFT}"
                                   class="badge bg-warning text-dark">
@@ -600,7 +609,7 @@
                             </span>
 
 
-                            <!-- Unpublished -->
+                            <!-- UNPUBLISHED -->
 
                             <span th:if="${quiz.status == T(com.quizplatform.model.QuizStatus).UNPUBLISHED}"
                                   class="badge bg-secondary">
@@ -611,10 +620,11 @@
 
                             </span>
 
+
                         </td>
 
 
-                        <!-- Manage -->
+                        <!-- MANAGE -->
 
                         <td class="text-end">
 
@@ -629,10 +639,11 @@
 
                         </td>
 
+
                     </tr>
 
 
-                    <!-- No Quizzes -->
+                    <!-- NO QUIZZES -->
 
                     <tr th:if="${#lists.isEmpty(quizzes)}">
 
@@ -658,7 +669,7 @@
 
             </div>
 
-        </div>
+        </section>
 
 
     </div>
@@ -673,315 +684,477 @@
 <script th:inline="javascript">
 
 
-    /* =========================================================
-       DATA FROM SPRING BOOT
-       ========================================================= */
+/* =========================================================
+   DATA FROM SPRING BOOT
+   ========================================================= */
 
-    const attemptsOverTime =
-        /*[[${stats.attemptsOverTime}]]*/ {};
+const attemptsOverTime =
+    /*[[${stats.attemptsOverTime}]]*/ {};
 
-    const registrationsOverTime =
-        /*[[${stats.registrationsOverTime}]]*/ {};
+const registrationsOverTime =
+    /*[[${stats.registrationsOverTime}]]*/ {};
 
-    const avgScorePerQuiz =
-        /*[[${stats.avgScorePerQuiz}]]*/ {};
+const avgScorePerQuiz =
+    /*[[${stats.avgScorePerQuiz}]]*/ {};
 
-    const totalPassed =
-        /*[[${stats.totalPassed}]]*/ 0;
+const totalPassed =
+    /*[[${stats.totalPassed}]]*/ 0;
 
-    const totalFailed =
-        /*[[${stats.totalFailed}]]*/ 0;
+const totalFailed =
+    /*[[${stats.totalFailed}]]*/ 0;
 
-    const popularQuizzes =
-        /*[[${stats.popularQuizzes}]]*/ {};
+const popularQuizzes =
+    /*[[${stats.popularQuizzes}]]*/ {};
 
-    const popularCategories =
-        /*[[${stats.popularCategories}]]*/ {};
-
-
-    /* =========================================================
-       COLORS
-       ========================================================= */
-
-    const purple = '#6366f1';
-    const green = '#22c55e';
-    const orange = '#f59e0b';
-    const blue = '#0ea5e9';
-    const red = '#ef4444';
+const popularCategories =
+    /*[[${stats.popularCategories}]]*/ {};
 
 
-    /* =========================================================
-       LINE CHART
-       ========================================================= */
+/* =========================================================
+   COLORS
+   ========================================================= */
 
-    function lineChart(canvasId, dataMap, color, label) {
+const purple = '#6366f1';
+const green = '#22c55e';
+const orange = '#f59e0b';
+const blue = '#0ea5e9';
+const red = '#ef4444';
 
-        const canvas = document.getElementById(canvasId);
 
-        if (!canvas) {
-            return;
-        }
+/* =========================================================
+   LINE CHART
+   ========================================================= */
 
-        new Chart(canvas, {
+function lineChart(
+    canvasId,
+    dataMap,
+    color,
+    label
+) {
 
-            type: 'line',
+    const canvas =
+        document.getElementById(canvasId);
 
-            data: {
+    if (!canvas) {
+        return;
+    }
 
-                labels: Object.keys(dataMap),
 
-                datasets: [{
+    new Chart(canvas, {
 
-                    label: label,
+        type: 'line',
 
-                    data: Object.values(dataMap),
+        data: {
 
-                    borderColor: color,
+            labels: Object.keys(dataMap),
 
-                    backgroundColor: color + '33',
+            datasets: [{
 
-                    tension: 0.3,
+                label: label,
 
-                    fill: true,
+                data: Object.values(dataMap),
 
-                    pointRadius: 3,
+                borderColor: color,
 
-                    pointHoverRadius: 5
+                backgroundColor: color + '33',
 
-                }]
+                tension: 0.3,
+
+                fill: true,
+
+                pointRadius: 3,
+
+                pointHoverRadius: 5
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
 
             },
 
-            options: {
+            scales: {
 
-                responsive: true,
+                y: {
 
-                maintainAspectRatio: false,
+                    beginAtZero: true,
 
-                plugins: {
-
-                    legend: {
-                        display: false
-                    }
-
-                },
-
-                scales: {
-
-                    y: {
-
-                        beginAtZero: true,
-
-                        ticks: {
-                            precision: 0
-                        }
-
+                    ticks: {
+                        precision: 0
                     }
 
                 }
 
             }
 
-        });
+        }
 
+    });
+
+}
+
+
+/* =========================================================
+   BAR CHART
+   ========================================================= */
+
+function barChart(
+    canvasId,
+    dataMap,
+    color,
+    label,
+    horizontal
+) {
+
+    const canvas =
+        document.getElementById(canvasId);
+
+    if (!canvas) {
+        return;
     }
 
 
-    /* =========================================================
-       BAR CHART
-       ========================================================= */
+    new Chart(canvas, {
 
-    function barChart(
-        canvasId,
-        dataMap,
-        color,
-        label,
-        horizontal
-    ) {
+        type: 'bar',
 
-        const canvas = document.getElementById(canvasId);
+        data: {
 
-        if (!canvas) {
-            return;
-        }
+            labels: Object.keys(dataMap),
 
-        new Chart(canvas, {
+            datasets: [{
 
-            type: 'bar',
+                label: label,
 
-            data: {
+                data: Object.values(dataMap),
 
-                labels: Object.keys(dataMap),
+                backgroundColor: color,
 
-                datasets: [{
+                borderRadius: 6
 
-                    label: label,
+            }]
 
-                    data: Object.values(dataMap),
+        },
 
-                    backgroundColor: color,
+        options: {
 
-                    borderRadius: 6
+            responsive: true,
 
-                }]
+            maintainAspectRatio: false,
+
+            indexAxis:
+                horizontal ? 'y' : 'x',
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
 
             },
 
-            options: {
+            scales: {
 
-                responsive: true,
+                x: {
 
-                maintainAspectRatio: false,
-
-                indexAxis: horizontal ? 'y' : 'x',
-
-                plugins: {
-
-                    legend: {
-                        display: false
-                    }
-
-                },
-
-                scales: {
-
-                    x: {
-
-                        beginAtZero: true
-
-                    }
+                    beginAtZero: true
 
                 }
 
             }
 
-        });
+        }
 
-    }
+    });
 
-
-    /* =========================================================
-       ATTEMPTS
-       ========================================================= */
-
-    lineChart(
-        'attemptsOverTimeChart',
-        attemptsOverTime,
-        purple,
-        'Attempts'
-    );
+}
 
 
-    /* =========================================================
-       REGISTRATIONS
-       ========================================================= */
+/* =========================================================
+   ATTEMPTS OVER TIME
+   ========================================================= */
 
-    lineChart(
-        'registrationsChart',
-        registrationsOverTime,
-        blue,
-        'Registrations'
-    );
-
-
-    /* =========================================================
-       AVERAGE SCORE
-       ========================================================= */
-
-    barChart(
-        'avgScoreChart',
-        avgScorePerQuiz,
-        green,
-        'Average %',
-        true
-    );
+lineChart(
+    'attemptsOverTimeChart',
+    attemptsOverTime,
+    purple,
+    'Attempts'
+);
 
 
-    /* =========================================================
-       POPULAR QUIZZES
-       ========================================================= */
+/* =========================================================
+   STUDENT REGISTRATIONS
+   ========================================================= */
 
-    barChart(
-        'popularQuizzesChart',
-        popularQuizzes,
-        orange,
-        'Attempts',
-        true
-    );
-
-
-    /* =========================================================
-       POPULAR CATEGORIES
-       ========================================================= */
-
-    barChart(
-        'popularCategoriesChart',
-        popularCategories,
-        purple,
-        'Attempts',
-        true
-    );
+lineChart(
+    'registrationsChart',
+    registrationsOverTime,
+    blue,
+    'Registrations'
+);
 
 
-    /* =========================================================
-       PASS / FAIL CHART
-       ========================================================= */
+/* =========================================================
+   AVERAGE QUIZ SCORES
+   ========================================================= */
 
-    const passFailCanvas =
-        document.getElementById('passFailChart');
+barChart(
+    'avgScoreChart',
+    avgScorePerQuiz,
+    green,
+    'Average %',
+    true
+);
 
-    if (passFailCanvas) {
 
-        new Chart(passFailCanvas, {
+/* =========================================================
+   POPULAR QUIZZES
+   ========================================================= */
 
-            type: 'doughnut',
+barChart(
+    'popularQuizzesChart',
+    popularQuizzes,
+    orange,
+    'Attempts',
+    true
+);
 
-            data: {
 
-                labels: [
-                    'Passed',
-                    'Failed'
+/* =========================================================
+   POPULAR CATEGORIES
+   ========================================================= */
+
+barChart(
+    'popularCategoriesChart',
+    popularCategories,
+    purple,
+    'Attempts',
+    true
+);
+
+
+/* =========================================================
+   PASS / FAIL CHART
+   ========================================================= */
+
+const passFailCanvas =
+    document.getElementById('passFailChart');
+
+
+if (passFailCanvas) {
+
+    new Chart(passFailCanvas, {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: [
+                'Passed',
+                'Failed'
+            ],
+
+            datasets: [{
+
+                data: [
+                    totalPassed,
+                    totalFailed
                 ],
 
-                datasets: [{
+                backgroundColor: [
+                    green,
+                    red
+                ],
 
-                    data: [
-                        totalPassed,
-                        totalFailed
-                    ],
+                borderWidth: 0
 
-                    backgroundColor: [
-                        green,
-                        red
-                    ],
+            }]
 
-                    borderWidth: 0
+        },
 
-                }]
+        options: {
 
-            },
+            responsive: true,
 
-            options: {
+            maintainAspectRatio: false,
 
-                responsive: true,
+            plugins: {
 
-                maintainAspectRatio: false,
+                legend: {
 
-                plugins: {
-
-                    legend: {
-
-                        position: 'bottom'
-
-                    }
+                    position: 'bottom'
 
                 }
 
             }
 
-        });
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE ADMIN SIDEBAR
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const menuButton =
+            document.getElementById("adminMenuToggle");
+
+        const sidebar =
+            document.getElementById("adminSidebar");
+
+        const overlay =
+            document.getElementById("adminSidebarOverlay");
+
+
+        if (
+            !menuButton ||
+            !sidebar ||
+            !overlay
+        ) {
+            return;
+        }
+
+
+        function openSidebar() {
+
+            sidebar.classList.add(
+                "mobile-open"
+            );
+
+            overlay.classList.add(
+                "active"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            document.body.classList.add(
+                "sidebar-open"
+            );
+
+        }
+
+
+        function closeSidebar() {
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            overlay.classList.remove(
+                "active"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            document.body.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+
+        menuButton.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    sidebar.classList.contains(
+                        "mobile-open"
+                    )
+                ) {
+
+                    closeSidebar();
+
+                } else {
+
+                    openSidebar();
+
+                }
+
+            }
+        );
+
+
+        overlay.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeSidebar();
+
+                }
+
+            }
+        );
+
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (window.innerWidth > 768) {
+
+                    closeSidebar();
+
+                }
+
+            }
+        );
+
+
+        sidebar.addEventListener(
+            "click",
+            function (event) {
+
+                const link =
+                    event.target.closest("a");
+
+
+                if (
+                    link &&
+                    window.innerWidth <= 768
+                ) {
+
+                    closeSidebar();
+
+                }
+
+            }
+        );
 
     }
+);
 
 </script>
 

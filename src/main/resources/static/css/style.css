@@ -38,7 +38,12 @@ body {
 
     background-color: var(--qp-bg);
 
-    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family:
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
 
     color: var(--qp-text);
 
@@ -70,6 +75,11 @@ textarea {
     letter-spacing: -0.5px;
 }
 
+.badge-role {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
 
 /* =========================================================
    BUTTONS
@@ -95,7 +105,6 @@ textarea {
 .card {
     border: none;
     border-radius: var(--qp-card-radius);
-
     box-shadow: var(--qp-card-shadow);
 }
 
@@ -117,7 +126,6 @@ textarea {
 .stat-card .stat-value {
     font-size: 2rem;
     font-weight: 700;
-
     line-height: 1.2;
 }
 
@@ -273,12 +281,6 @@ input[type="radio"]:checked + .option-label,
    BADGES
    ========================================================= */
 
-.badge-role {
-    font-size: 0.75rem;
-
-    letter-spacing: 0.5px;
-}
-
 .result-badge,
 .status-badge {
     display: inline-block;
@@ -325,7 +327,6 @@ table.table thead {
 
 table.table th {
     color: #374151;
-
     font-weight: 600;
 }
 
@@ -364,9 +365,36 @@ table.table tbody tr:hover {
 
 
 /* =========================================================
-   =========================================================
-   STUDENT + ADMIN SIDEBAR
-   =========================================================
+   SIDEBAR SYSTEM
+   ========================================================= */
+
+/*
+   DESKTOP
+
+   Sidebar:
+   250px fixed on the left.
+
+   Main content:
+   starts after the sidebar.
+
+   MOBILE
+
+   Sidebar:
+   hidden outside the left side.
+
+   Hamburger:
+   visible.
+
+   Overlay:
+   appears only when sidebar is open.
+
+   IMPORTANT:
+   There is intentionally NO close/X button.
+*/
+
+
+/* =========================================================
+   DESKTOP SIDEBAR
    ========================================================= */
 
 .student-sidebar,
@@ -379,6 +407,8 @@ table.table tbody tr:hover {
 
     width: var(--qp-sidebar-width);
 
+    height: 100vh;
+
     background: #ffffff;
 
     border-right: 1px solid var(--qp-border);
@@ -386,7 +416,7 @@ table.table tbody tr:hover {
     display: flex;
     flex-direction: column;
 
-    z-index: 1040;
+    z-index: 1050;
 
     box-shadow:
         2px 0 12px rgba(20, 20, 43, 0.05);
@@ -525,6 +555,7 @@ table.table tbody tr:hover {
    ========================================================= */
 
 .sidebar-link.active,
+.student-sidebar .sidebar-link.active,
 .admin-sidebar .sidebar-link.active {
     background-color: #eef0fd;
 
@@ -579,6 +610,133 @@ table.table tbody tr:hover {
 
 .sidebar-menu::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
+
+/*
+   Hidden on desktop.
+   Visible only on screens <= 768px.
+
+   This is the ONLY menu button.
+
+   There is intentionally NO X button.
+*/
+
+.mobile-menu-btn {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 60px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 16px;
+
+    border: none;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    box-shadow:
+        0 1px 8px rgba(20, 20, 43, 0.08);
+
+    z-index: 1040;
+
+    cursor: pointer;
+}
+
+.mobile-menu-btn i {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    font-size: 1.5rem;
+
+    color: var(--qp-primary);
+}
+
+.mobile-menu-btn::after {
+    content: "Quiz Platform";
+
+    color: #1f2937;
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+}
+
+
+/*
+   Prevent the old admin class from changing layout.
+*/
+
+.admin-mobile-menu-btn {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================================= */
+
+.mobile-sidebar-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.40);
+
+    z-index: 1045;
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.mobile-sidebar-overlay.mobile-open {
+    display: block;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   IMPORTANT: REMOVE OLD CLOSE BUTTON
+   ========================================================= */
+
+/*
+   If an older fragment still contains .mobile-sidebar-close,
+   this guarantees that it cannot appear.
+
+   The redesigned layout does NOT use an X button.
+*/
+
+.mobile-sidebar-close {
+    display: none !important;
 }
 
 
@@ -968,9 +1126,7 @@ table.table tbody tr:hover {
 
 
 /* =========================================================
-   =========================================================
    ADMIN DASHBOARD
-   =========================================================
    ========================================================= */
 
 .admin-dashboard {
@@ -1462,7 +1618,7 @@ table.table tbody tr:hover {
 
 
 /* =========================================================
-   MOBILE / TABLET
+   MOBILE
    ========================================================= */
 
 @media (max-width: 768px) {
@@ -1477,9 +1633,25 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
-       SIDEBAR
-       ----------------------------------------------------- */
+    /* =====================================================
+       MOBILE TOP BAR
+       ===================================================== */
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .admin-mobile-menu-btn {
+        display: flex;
+    }
+
+
+    /* =====================================================
+       MOBILE SIDEBAR
+
+       Initially completely hidden.
+       When .mobile-open is added it slides in.
+       ===================================================== */
 
     .student-sidebar,
     .admin-sidebar {
@@ -1487,15 +1659,17 @@ table.table tbody tr:hover {
 
         top: 0;
         left: calc(-1 * var(--qp-sidebar-mobile-width));
+
         bottom: 0;
 
         width: var(--qp-sidebar-mobile-width);
 
         height: 100vh;
 
-        z-index: 1050;
+        z-index: 1060;
 
-        transition: left 0.3s ease;
+        transition:
+            left 0.3s ease;
 
         box-shadow:
             5px 0 25px rgba(0, 0, 0, 0.12);
@@ -1507,9 +1681,11 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        MAIN CONTENT
-       ----------------------------------------------------- */
+
+       Leave space for mobile top bar.
+       ===================================================== */
 
     .student-main,
     .admin-main,
@@ -1520,13 +1696,14 @@ table.table tbody tr:hover {
 
         margin-left: 0 !important;
 
-        padding: 20px 15px !important;
+        padding:
+            80px 15px 20px !important;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ LAYOUT
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-layout {
         display: block !important;
@@ -1537,18 +1714,35 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
+       MOBILE BRAND INSIDE SIDEBAR
+       ===================================================== */
+
+    .sidebar-brand {
+        height: 64px;
+
+        padding: 0 20px;
+    }
+
+    .sidebar-brand-link {
+        font-size: 1.1rem;
+    }
+
+
+    /* =====================================================
        STUDENT QUIZ GRID
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-grid {
         grid-template-columns: 1fr;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        STUDENT STATS
-       ----------------------------------------------------- */
+
+       Two columns on normal phones.
+       ===================================================== */
 
     .stats-grid {
         grid-template-columns:
@@ -1556,9 +1750,11 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN STATS
-       ----------------------------------------------------- */
+
+       Two columns on normal phones.
+       ===================================================== */
 
     .admin-stats-grid {
         grid-template-columns:
@@ -1566,9 +1762,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN HEADER
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-header {
         align-items: flex-start;
@@ -1577,9 +1773,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN CHARTS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-chart-grid {
         grid-template-columns: 1fr;
@@ -1594,18 +1790,18 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        SECTION HEADER
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .section-header {
         align-items: flex-start;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        RESULTS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .results-card {
         overflow-x: auto;
@@ -1616,9 +1812,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN TABLE
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-main .table-responsive {
         overflow-x: auto;
@@ -1637,9 +1833,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ MAIN
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main .row {
         margin-left: 0;
@@ -1654,9 +1850,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ CARD
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main .card {
         max-width: 100%;
@@ -1665,9 +1861,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ TEXT
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main h3,
     .quiz-main h4,
@@ -1679,14 +1875,25 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ IMAGE
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main img {
         max-width: 100%;
 
         height: auto;
+    }
+
+
+    /* =====================================================
+       ACCESSIBILITY
+       ===================================================== */
+
+    .mobile-menu-btn:focus-visible {
+        outline: 3px solid rgba(79, 70, 229, 0.25);
+
+        outline-offset: -3px;
     }
 }
 
@@ -1704,13 +1911,35 @@ table.table tbody tr:hover {
 
         margin-left: 0;
 
-        padding: 15px 12px !important;
+        padding:
+            75px 12px 15px !important;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
+       TOP BAR
+       ===================================================== */
+
+    .mobile-menu-btn {
+        height: 58px;
+
+        padding: 0 14px;
+    }
+
+    .mobile-menu-btn i {
+        width: 30px;
+
+        font-size: 1.4rem;
+    }
+
+    .mobile-menu-btn::after {
+        font-size: 1rem;
+    }
+
+
+    /* =====================================================
        STATS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .stats-grid,
     .admin-stats-grid {
@@ -1726,18 +1955,18 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        AUTH
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .auth-card {
         border-radius: 0;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        SECTION HEADER
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .section-header {
         flex-direction: column;
@@ -1746,27 +1975,27 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ DETAILS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-details {
         gap: 8px 12px;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ FILTER
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main form.card {
         padding: 15px !important;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ FORM CONTROLS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main .form-control,
     .quiz-main .form-select,
@@ -1775,9 +2004,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        QUIZ CARD
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main .card {
         padding: 15px !important;
@@ -1786,27 +2015,27 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        FLEX ELEMENTS
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .quiz-main .d-flex {
         flex-wrap: wrap;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN HEADER BUTTON
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-header .btn {
         width: 100%;
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN CHART
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-chart-container {
         height: 230px;
@@ -1817,9 +2046,9 @@ table.table tbody tr:hover {
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ADMIN CARD
-       ----------------------------------------------------- */
+       ===================================================== */
 
     .admin-main .card {
         border-radius: 12px;
@@ -1844,7 +2073,8 @@ table.table tbody tr:hover {
     .student-main,
     .admin-main,
     .quiz-main {
-        padding: 12px !important;
+        padding:
+            72px 10px 12px !important;
     }
 
     .stat-card {
@@ -1871,35 +2101,6 @@ table.table tbody tr:hover {
     .admin-chart-card canvas {
         height: 200px !important;
     }
-}
-
-
-/* =========================================================
-   MOBILE SIDEBAR OVERLAY
-   ========================================================= */
-
-/*
-   Optional HTML:
-
-   <div class="sidebar-overlay"></div>
-
-   Add/remove the "active" class using JavaScript.
-*/
-
-.sidebar-overlay {
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.35);
-
-    z-index: 1045;
-}
-
-.sidebar-overlay.active {
-    display: block;
 }
 
 
