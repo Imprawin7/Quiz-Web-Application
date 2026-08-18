@@ -24,305 +24,291 @@
 
 </head>
 
-
 <body>
 
-<div class="quiz-layout">
-
-    <!-- =====================================================
-         STUDENT SIDEBAR
-         ===================================================== -->
-
-    <aside th:replace="~{fragments :: sidebar-student}"></aside>
+<!-- Student Navigation -->
+<div th:replace="~{fragments :: navbar-student}"></div>
 
 
-    <!-- =====================================================
-         MAIN CONTENT
-         ===================================================== -->
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
 
-    <main class="quiz-main">
+<main class="container py-4">
 
-        <!-- =================================================
-             PAGE HEADER
-             ================================================= -->
+    <!-- =================================================
+         PAGE HEADER
+         ================================================= -->
 
-        <div class="page-header mb-4">
+    <div class="page-header mb-4">
 
-            <h3 class="fw-bold mb-1">
-                My Quiz History
-            </h3>
+        <h3 class="fw-bold mb-1">
+            My Quiz History
+        </h3>
 
-            <p class="text-muted mb-0">
-                Review your previous quiz attempts and results.
-            </p>
+        <p class="text-muted mb-0">
+            Review your previous quiz attempts and results.
+        </p>
 
-        </div>
+    </div>
 
 
-        <!-- =================================================
-             HISTORY TABLE
-             ================================================= -->
+    <!-- =================================================
+         HISTORY TABLE
+         ================================================= -->
 
-        <div class="card">
+    <div class="card">
 
-            <div class="card-body border-bottom">
+        <div class="card-body border-bottom">
 
-                <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
 
-                    <div>
+                <div>
 
-                        <h5 class="fw-bold mb-1">
-                            Quiz Attempts
-                        </h5>
+                    <h5 class="fw-bold mb-1">
+                        Quiz Attempts
+                    </h5>
 
-                        <p class="text-muted small mb-0">
-                            Click an attempt to view its detailed result.
-                        </p>
-
-                    </div>
-
-                    <a href="/student/quizzes"
-                       class="btn btn-primary btn-sm">
-
-                        <i class="bi bi-play-circle me-1"></i>
-
-                        Take a Quiz
-
-                    </a>
+                    <p class="text-muted small mb-0">
+                        Click an attempt to view its detailed result.
+                    </p>
 
                 </div>
 
-            </div>
+                <a href="/student/quizzes"
+                   class="btn btn-primary btn-sm">
 
+                    <i class="bi bi-play-circle me-1"></i>
 
-            <div class="table-responsive">
+                    Take a Quiz
 
-                <table class="table mb-0 align-middle">
-
-                    <thead>
-
-                    <tr>
-
-                        <th>Quiz</th>
-
-                        <th>Date</th>
-
-                        <th>Score</th>
-
-                        <th>%</th>
-
-                        <th>Result</th>
-
-                        <th>Submission</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-                    <!-- =================================================
-                         ATTEMPT ROW
-                         ================================================= -->
-
-                    <tr th:each="a : ${attempts}"
-                        style="cursor:pointer;"
-                        th:onclick="'window.location=\'' + @{/quiz/result/{id}(id=${a.id})} + '\''">
-
-
-                        <!-- Quiz -->
-
-                        <td>
-
-                            <div class="fw-semibold"
-                                 th:text="${a.quiz.title}">
-
-                                Quiz
-
-                            </div>
-
-                        </td>
-
-
-                        <!-- Date -->
-
-                        <td>
-
-                            <span th:if="${a.endTime != null}"
-                                  th:text="${#temporals.format(a.endTime, 'dd MMM yyyy')}">
-
-                                -
-
-                            </span>
-
-                            <span th:unless="${a.endTime != null}">
-                                -
-                            </span>
-
-                        </td>
-
-
-                        <!-- Score -->
-
-                        <td>
-
-                            <strong th:text="${a.score + '/' + a.totalMarks}">
-                                0
-                            </strong>
-
-                        </td>
-
-
-                        <!-- Percentage -->
-
-                        <td>
-
-                            <strong th:text="${a.percentage + '%'}">
-                                0%
-                            </strong>
-
-                        </td>
-
-
-                        <!-- Result -->
-
-                        <td>
-
-                            <span th:if="${a.passed}"
-                                  class="badge bg-success">
-
-                                <i class="bi bi-check-circle me-1"></i>
-
-                                Passed
-
-                            </span>
-
-
-                            <span th:unless="${a.passed}"
-                                  class="badge bg-danger">
-
-                                <i class="bi bi-x-circle me-1"></i>
-
-                                Failed
-
-                            </span>
-
-                        </td>
-
-
-                        <!-- Submission Status -->
-
-                        <td>
-
-                            <span th:if="${a.status.name() == 'SUBMITTED'}"
-                                  class="badge bg-light text-dark border">
-
-                                <i class="bi bi-check2 me-1"></i>
-
-                                Submitted
-
-                            </span>
-
-
-                            <span th:if="${a.status.name() == 'TIME_EXPIRED'}"
-                                  class="badge bg-warning text-dark">
-
-                                <i class="bi bi-clock me-1"></i>
-
-                                Time Expired
-
-                            </span>
-
-                        </td>
-
-
-                        <!-- View -->
-
-                        <td>
-
-                            <a th:href="@{/quiz/result/{id}(id=${a.id})}"
-                               class="btn btn-sm btn-outline-primary"
-                               onclick="event.stopPropagation();">
-
-                                <i class="bi bi-eye me-1"></i>
-
-                                View
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-
-                    <!-- =================================================
-                         NO ATTEMPTS
-                         ================================================= -->
-
-                    <tr th:if="${#lists.isEmpty(attempts)}">
-
-                        <td colspan="7"
-                            class="text-center text-muted py-5">
-
-                            <div class="mb-3">
-
-                                <i class="bi bi-clock-history fs-1"></i>
-
-                            </div>
-
-                            <h5 class="fw-bold">
-                                No quiz attempts yet
-                            </h5>
-
-                            <p class="mb-3">
-                                Take your first quiz to see your results here.
-                            </p>
-
-                            <a href="/student/quizzes"
-                               class="btn btn-primary">
-
-                                <i class="bi bi-play-circle me-1"></i>
-
-                                Browse Quizzes
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                    </tbody>
-
-                </table>
+                </a>
 
             </div>
 
         </div>
 
 
-        <!-- =================================================
-             BACK TO DASHBOARD
-             ================================================= -->
+        <div class="table-responsive">
 
-        <div class="mt-4">
+            <table class="table mb-0 align-middle">
 
-            <a href="/student/dashboard"
-               class="btn btn-outline-primary">
+                <thead>
 
-                <i class="bi bi-arrow-left me-1"></i>
+                <tr>
 
-                Back to Dashboard
+                    <th>Quiz</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>%</th>
+                    <th>Result</th>
+                    <th>Submission</th>
+                    <th>Action</th>
 
-            </a>
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <!-- =================================================
+                     ATTEMPT ROW
+                     ================================================= -->
+
+                <tr th:each="a : ${attempts}"
+                    style="cursor:pointer;"
+                    th:onclick="'window.location=\'' + @{/quiz/result/{id}(id=${a.id})} + '\''">
+
+
+                    <!-- Quiz -->
+
+                    <td>
+
+                        <div class="fw-semibold"
+                             th:text="${a.quiz.title}">
+
+                            Quiz
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Date -->
+
+                    <td>
+
+                        <span th:if="${a.endTime != null}"
+                              th:text="${#temporals.format(a.endTime, 'dd MMM yyyy')}">
+
+                            -
+
+                        </span>
+
+                        <span th:unless="${a.endTime != null}">
+                            -
+                        </span>
+
+                    </td>
+
+
+                    <!-- Score -->
+
+                    <td>
+
+                        <strong th:text="${a.score + '/' + a.totalMarks}">
+                            0
+                        </strong>
+
+                    </td>
+
+
+                    <!-- Percentage -->
+
+                    <td>
+
+                        <strong th:text="${a.percentage + '%'}">
+                            0%
+                        </strong>
+
+                    </td>
+
+
+                    <!-- Result -->
+
+                    <td>
+
+                        <span th:if="${a.passed}"
+                              class="badge bg-success">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Passed
+
+                        </span>
+
+
+                        <span th:unless="${a.passed}"
+                              class="badge bg-danger">
+
+                            <i class="bi bi-x-circle me-1"></i>
+
+                            Failed
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Submission Status -->
+
+                    <td>
+
+                        <span th:if="${a.status.name() == 'SUBMITTED'}"
+                              class="badge bg-light text-dark border">
+
+                            <i class="bi bi-check2 me-1"></i>
+
+                            Submitted
+
+                        </span>
+
+
+                        <span th:if="${a.status.name() == 'TIME_EXPIRED'}"
+                              class="badge bg-warning text-dark">
+
+                            <i class="bi bi-clock me-1"></i>
+
+                            Time Expired
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- View -->
+
+                    <td>
+
+                        <a th:href="@{/quiz/result/{id}(id=${a.id})}"
+                           class="btn btn-sm btn-outline-primary"
+                           onclick="event.stopPropagation();">
+
+                            <i class="bi bi-eye me-1"></i>
+
+                            View
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+                <!-- =================================================
+                     NO ATTEMPTS
+                     ================================================= -->
+
+                <tr th:if="${#lists.isEmpty(attempts)}">
+
+                    <td colspan="7"
+                        class="text-center text-muted py-5">
+
+                        <div class="mb-3">
+
+                            <i class="bi bi-clock-history fs-1"></i>
+
+                        </div>
+
+                        <h5 class="fw-bold">
+                            No quiz attempts yet
+                        </h5>
+
+                        <p class="mb-3">
+                            Take your first quiz to see your results here.
+                        </p>
+
+                        <a href="/student/quizzes"
+                           class="btn btn-primary">
+
+                            <i class="bi bi-play-circle me-1"></i>
+
+                            Browse Quizzes
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
 
-    </main>
+    </div>
 
-</div>
+
+    <!-- =================================================
+         BACK TO DASHBOARD
+         ================================================= -->
+
+    <div class="mt-4">
+
+        <a href="/student/dashboard"
+           class="btn btn-outline-primary">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</main>
 
 </body>
 
