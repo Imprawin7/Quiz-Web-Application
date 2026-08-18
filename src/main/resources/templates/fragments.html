@@ -2,150 +2,106 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-    <title th:fragment="head(title)"
-           th:text="${title} + ' - QuizPlatform'">
-        QuizPlatform
-    </title>
-
+    <meta charset="UTF-8">
+    <title>QuizPlatform Fragments</title>
 </head>
-
 
 <body>
 
 
 <!-- =========================================================
-     COMMON HEAD CONTENT
-     ========================================================= -->
-
-<th:block th:fragment="headcontent">
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet">
-
-    <!-- QuizPlatform CSS -->
-    <link href="/css/style.css"
-          rel="stylesheet">
-
-</th:block>
-
-
-
-<!-- =========================================================
-     OLD ADMIN NAVBAR
-     
-     Kept for older pages.
+     ADMIN NAVBAR
      ========================================================= -->
 
 <nav th:fragment="navbar-admin"
-     class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+     class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
 
-        <a class="navbar-brand"
+        <a class="navbar-brand fw-bold"
            href="/admin/dashboard">
 
-            <i class="bi bi-mortarboard-fill me-1"></i>
-
+            <i class="bi bi-patch-question-fill me-2"></i>
             QuizPlatform
 
-            <span class="badge bg-primary badge-role">
-                ADMIN
-            </span>
-
         </a>
-
 
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navAdmin">
+                data-bs-target="#adminNavbar"
+                aria-controls="adminNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-
         <div class="collapse navbar-collapse"
-             id="navAdmin">
+             id="adminNavbar">
 
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
                     <a class="nav-link"
                        href="/admin/dashboard">
+
+                        <i class="bi bi-speedometer2 me-1"></i>
                         Dashboard
+
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
                        href="/admin/quizzes">
+
+                        <i class="bi bi-journal-text me-1"></i>
                         Quizzes
+
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="/admin/categories">
-                        Categories
+                       href="/admin/questions">
+
+                        <i class="bi bi-question-circle me-1"></i>
+                        Questions
+
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
                        href="/admin/users">
-                        Students
+
+                        <i class="bi bi-people me-1"></i>
+                        Users
+
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="/admin/attempts">
-                        All Attempts
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="/admin/analytics">
-                        Analytics
-                    </a>
-                </li>
+                    <form th:action="@{/logout}"
+                          method="post"
+                          class="d-inline">
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="/leaderboard">
-                        Leaderboard
-                    </a>
+                        <button type="submit"
+                                class="btn btn-link nav-link">
+
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            Logout
+
+                        </button>
+
+                    </form>
+
                 </li>
 
             </ul>
-
-
-            <form th:action="@{/logout}"
-                  method="post">
-
-                <button type="submit"
-                        class="btn btn-outline-light btn-sm">
-
-                    <i class="bi bi-box-arrow-right me-1"></i>
-
-                    Logout
-
-                </button>
-
-            </form>
 
         </div>
 
@@ -154,92 +110,146 @@
 </nav>
 
 
-
 <!-- =========================================================
-     OLD STUDENT NAVBAR
+     STUDENT DESKTOP NAVBAR
      
-     Kept for older pages.
+     This is the normal navigation on desktop.
+     It is NOT a sidebar.
      ========================================================= -->
 
 <nav th:fragment="navbar-student"
-     class="navbar navbar-expand-lg navbar-dark shadow-sm mb-4"
-     style="background-color:#4338ca;">
+     class="navbar navbar-expand-lg navbar-dark bg-primary student-navbar">
 
     <div class="container">
 
-        <a class="navbar-brand"
+        <!-- BRAND -->
+
+        <a class="navbar-brand fw-bold"
            href="/student/dashboard">
 
-            <i class="bi bi-mortarboard-fill me-1"></i>
-
+            <i class="bi bi-patch-question-fill me-2"></i>
             QuizPlatform
-
-            <span class="badge bg-light text-dark badge-role">
-                STUDENT
-            </span>
 
         </a>
 
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navStudent">
+        <!-- MOBILE HAMBURGER -->
+
+        <button type="button"
+                class="navbar-toggler student-mobile-toggle"
+                id="studentMenuButton"
+                aria-label="Open student menu"
+                aria-controls="studentSidebar"
+                aria-expanded="false">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
 
-        <div class="collapse navbar-collapse"
-             id="navStudent">
+        <!-- DESKTOP NAVIGATION -->
 
-            <ul class="navbar-nav me-auto">
+        <div class="collapse navbar-collapse"
+             id="studentNavbar">
+
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Dashboard -->
 
                 <li class="nav-item">
+
                     <a class="nav-link"
                        href="/student/dashboard">
+
+                        <i class="bi bi-speedometer2 me-1"></i>
                         Dashboard
+
                     </a>
+
                 </li>
 
+
+                <!-- Quizzes -->
+
                 <li class="nav-item">
+
                     <a class="nav-link"
                        href="/student/quizzes">
-                        Available Quizzes
+
+                        <i class="bi bi-journal-text me-1"></i>
+                        Quizzes
+
                     </a>
+
                 </li>
 
+
+                <!-- History -->
+
                 <li class="nav-item">
+
                     <a class="nav-link"
                        href="/student/history">
+
+                        <i class="bi bi-clock-history me-1"></i>
                         My History
+
                     </a>
+
                 </li>
 
+
+                <!-- Leaderboard -->
+
                 <li class="nav-item">
+
                     <a class="nav-link"
                        href="/leaderboard">
+
+                        <i class="bi bi-trophy me-1"></i>
                         Leaderboard
+
                     </a>
+
+                </li>
+
+
+                <!-- Profile -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="/student/profile">
+
+                        <i class="bi bi-person-circle me-1"></i>
+                        Profile
+
+                    </a>
+
+                </li>
+
+
+                <!-- Logout -->
+
+                <li class="nav-item">
+
+                    <form th:action="@{/logout}"
+                          method="post"
+                          class="d-inline">
+
+                        <button type="submit"
+                                class="btn btn-link nav-link">
+
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            Logout
+
+                        </button>
+
+                    </form>
+
                 </li>
 
             </ul>
-
-
-            <form th:action="@{/logout}"
-                  method="post">
-
-                <button type="submit"
-                        class="btn btn-outline-light btn-sm">
-
-                    <i class="bi bi-box-arrow-right me-1"></i>
-
-                    Logout
-
-                </button>
-
-            </form>
 
         </div>
 
@@ -248,45 +258,51 @@
 </nav>
 
 
-
 <!-- =========================================================
-     STUDENT SIDEBAR
+     STUDENT MOBILE SIDEBAR
+     
+     IMPORTANT:
+     Hidden by default.
+     Opens only when the hamburger is clicked.
      ========================================================= -->
 
-<aside th:fragment="sidebar-student"
-       class="student-sidebar">
+<div th:fragment="sidebar-student"
+     class="student-sidebar"
+     id="studentSidebar">
 
+    <!-- SIDEBAR HEADER -->
 
-    <!-- =====================================================
-         BRAND
-         ===================================================== -->
-
-    <div class="sidebar-brand">
+    <div class="student-sidebar-header">
 
         <a href="/student/dashboard"
-           class="sidebar-brand-link">
+           class="student-sidebar-brand">
 
-            <i class="bi bi-mortarboard-fill"></i>
-
-            <span>QuizPlatform</span>
+            <i class="bi bi-patch-question-fill me-2"></i>
+            QuizPlatform
 
         </a>
+
+
+        <!-- CLOSE -->
+
+        <button type="button"
+                class="student-sidebar-close"
+                id="studentSidebarClose"
+                aria-label="Close menu">
+
+            <i class="bi bi-x-lg"></i>
+
+        </button>
 
     </div>
 
 
+    <!-- SIDEBAR LINKS -->
 
-    <!-- =====================================================
-         MAIN MENU
-         ===================================================== -->
-
-    <div class="sidebar-menu">
-
-
-        <!-- Dashboard -->
+    <nav class="student-sidebar-nav">
 
         <a href="/student/dashboard"
-           class="sidebar-link">
+           class="student-sidebar-link">
 
             <i class="bi bi-house-door-fill"></i>
 
@@ -295,10 +311,8 @@
         </a>
 
 
-        <!-- Quizzes -->
-
         <a href="/student/quizzes"
-           class="sidebar-link">
+           class="student-sidebar-link">
 
             <i class="bi bi-journal-text"></i>
 
@@ -307,10 +321,8 @@
         </a>
 
 
-        <!-- History -->
-
         <a href="/student/history"
-           class="sidebar-link">
+           class="student-sidebar-link">
 
             <i class="bi bi-clock-history"></i>
 
@@ -319,22 +331,18 @@
         </a>
 
 
-        <!-- Leaderboard -->
-
         <a href="/leaderboard"
-           class="sidebar-link">
+           class="student-sidebar-link">
 
-            <i class="bi bi-trophy-fill"></i>
+            <i class="bi bi-trophy"></i>
 
             <span>Leaderboard</span>
 
         </a>
 
 
-        <!-- Profile -->
-
         <a href="/student/profile"
-           class="sidebar-link">
+           class="student-sidebar-link">
 
             <i class="bi bi-person-circle"></i>
 
@@ -342,21 +350,18 @@
 
         </a>
 
-    </div>
+    </nav>
 
 
+    <!-- LOGOUT -->
 
-    <!-- =====================================================
-         BOTTOM
-         ===================================================== -->
-
-    <div class="sidebar-bottom">
+    <div class="student-sidebar-footer">
 
         <form th:action="@{/logout}"
               method="post">
 
             <button type="submit"
-                    class="sidebar-link sidebar-logout">
+                    class="student-sidebar-link student-logout">
 
                 <i class="bi bi-box-arrow-right"></i>
 
@@ -368,168 +373,18 @@
 
     </div>
 
-</aside>
-
+</div>
 
 
 <!-- =========================================================
-     ADMIN SIDEBAR
+     SIDEBAR OVERLAY
      ========================================================= -->
 
-<aside th:fragment="sidebar-admin"
-       class="admin-sidebar">
-
-
-    <!-- =====================================================
-         BRAND
-         ===================================================== -->
-
-    <div class="sidebar-brand">
-
-        <a href="/admin/dashboard"
-           class="sidebar-brand-link">
-
-            <i class="bi bi-mortarboard-fill"></i>
-
-            <span>QuizPlatform</span>
-
-        </a>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         ADMIN MENU
-         ===================================================== -->
-
-    <div class="sidebar-menu">
-
-
-        <!-- Dashboard -->
-
-        <a href="/admin/dashboard"
-           class="sidebar-link">
-
-            <i class="bi bi-speedometer2"></i>
-
-            <span>Dashboard</span>
-
-        </a>
-
-
-        <!-- Quizzes -->
-
-        <a href="/admin/quizzes"
-           class="sidebar-link">
-
-            <i class="bi bi-journal-text"></i>
-
-            <span>Quizzes</span>
-
-        </a>
-
-
-        <!-- Categories -->
-
-        <a href="/admin/categories"
-           class="sidebar-link">
-
-            <i class="bi bi-grid"></i>
-
-            <span>Categories</span>
-
-        </a>
-
-
-        <!-- Students -->
-
-        <a href="/admin/users"
-           class="sidebar-link">
-
-            <i class="bi bi-people-fill"></i>
-
-            <span>Students</span>
-
-        </a>
-
-
-        <!-- Attempts -->
-
-        <a href="/admin/attempts"
-           class="sidebar-link">
-
-            <i class="bi bi-clipboard-check"></i>
-
-            <span>All Attempts</span>
-
-        </a>
-
-
-        <!-- Analytics -->
-
-        <a href="/admin/analytics"
-           class="sidebar-link">
-
-            <i class="bi bi-bar-chart-fill"></i>
-
-            <span>Analytics</span>
-
-        </a>
-
-
-        <!-- Leaderboard -->
-
-        <a href="/leaderboard"
-           class="sidebar-link">
-
-            <i class="bi bi-trophy-fill"></i>
-
-            <span>Leaderboard</span>
-
-        </a>
-
-
-        <!-- Profile -->
-
-        <a href="/admin/profile"
-           class="sidebar-link">
-
-            <i class="bi bi-person-circle"></i>
-
-            <span>Profile</span>
-
-        </a>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         ADMIN BOTTOM
-         ===================================================== -->
-
-    <div class="sidebar-bottom">
-
-        <form th:action="@{/logout}"
-              method="post">
-
-            <button type="submit"
-                    class="sidebar-link sidebar-logout">
-
-                <i class="bi bi-box-arrow-right"></i>
-
-                <span>Logout</span>
-
-            </button>
-
-        </form>
-
-    </div>
-
-</aside>
+<div th:fragment="student-sidebar-overlay"
+     class="student-sidebar-overlay"
+     id="studentSidebarOverlay">
+</div>
 
 
 </body>
-
 </html>

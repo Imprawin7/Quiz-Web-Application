@@ -6,7 +6,12 @@
     --qp-bg: #f4f5fb;
 }
 
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
 body {
+    margin: 0;
     background-color: var(--qp-bg);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
@@ -20,6 +25,7 @@ body {
     background-color: var(--qp-primary);
     border-color: var(--qp-primary);
 }
+
 .btn-primary:hover {
     background-color: var(--qp-primary-dark);
     border-color: var(--qp-primary-dark);
@@ -31,18 +37,45 @@ body {
     box-shadow: 0 2px 10px rgba(20, 20, 43, 0.06);
 }
 
+/* =========================================================
+   STAT CARDS
+   ========================================================= */
+
 .stat-card {
     border-radius: 14px;
     padding: 1.25rem 1.5rem;
     color: #fff;
 }
-.stat-card .stat-value { font-size: 2rem; font-weight: 700; }
-.stat-card .stat-label { opacity: 0.85; font-size: 0.9rem; }
 
-.bg-grad-purple { background: linear-gradient(135deg, #6366f1, #4338ca); }
-.bg-grad-green { background: linear-gradient(135deg, #22c55e, #15803d); }
-.bg-grad-orange { background: linear-gradient(135deg, #f59e0b, #b45309); }
-.bg-grad-blue { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-card .stat-label {
+    opacity: 0.85;
+    font-size: 0.9rem;
+}
+
+.bg-grad-purple {
+    background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+.bg-grad-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+}
+
+.bg-grad-orange {
+    background: linear-gradient(135deg, #f59e0b, #b45309);
+}
+
+.bg-grad-blue {
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+}
+
+/* =========================================================
+   AUTH
+   ========================================================= */
 
 .auth-wrapper {
     min-height: 100vh;
@@ -52,24 +85,45 @@ body {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     padding: 2rem 1rem;
 }
+
 .auth-card {
     max-width: 420px;
     width: 100%;
     border-radius: 18px;
 }
 
+/* =========================================================
+   TIMER
+   ========================================================= */
+
 #timer-display {
     font-variant-numeric: tabular-nums;
     font-weight: 700;
     font-size: 1.4rem;
 }
-#timer-display.timer-warning { color: var(--qp-danger); animation: pulse 1s infinite; }
+
+#timer-display.timer-warning {
+    color: var(--qp-danger);
+    animation: pulse 1s infinite;
+}
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.4; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
+
+/* =========================================================
+   QUESTIONS
+   ========================================================= */
 
 .question-card {
     scroll-margin-top: 90px;
@@ -84,7 +138,11 @@ body {
     cursor: pointer;
     transition: all 0.15s ease;
 }
-.option-label:hover { background-color: #f0f1fb; }
+
+.option-label:hover {
+    background-color: #f0f1fb;
+}
+
 input[type="radio"]:checked + .option-label,
 .option-label.selected {
     border-color: var(--qp-primary);
@@ -92,20 +150,354 @@ input[type="radio"]:checked + .option-label,
     font-weight: 600;
 }
 
+/* =========================================================
+   BADGES
+   ========================================================= */
+
 .badge-role {
     font-size: 0.75rem;
     letter-spacing: 0.5px;
 }
 
+/* =========================================================
+   TABLES
+   ========================================================= */
+
 table.table thead {
     background-color: #f0f1fb;
 }
 
-.rank-1 { background: linear-gradient(90deg, #fff7d6, transparent); }
-.rank-2 { background: linear-gradient(90deg, #f0f0f0, transparent); }
-.rank-3 { background: linear-gradient(90deg, #fde3cc, transparent); }
+.rank-1 {
+    background: linear-gradient(90deg, #fff7d6, transparent);
+}
+
+.rank-2 {
+    background: linear-gradient(90deg, #f0f0f0, transparent);
+}
+
+.rank-3 {
+    background: linear-gradient(90deg, #fde3cc, transparent);
+}
+
+/* =========================================================
+   STUDENT DRAWER / SIDEBAR
+   ========================================================= */
+
+/*
+   The sidebar is hidden by default.
+   It slides in from the LEFT when opened.
+*/
+
+.student-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 280px;
+    height: 100vh;
+
+    background: #ffffff;
+
+    z-index: 1100;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
+
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+
+    overflow-y: auto;
+}
+
+/*
+   OPEN STATE
+*/
+
+.student-sidebar.mobile-open {
+    transform: translateX(0);
+}
+
+/* =========================================================
+   SIDEBAR HEADER
+   ========================================================= */
+
+.student-sidebar-header {
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    background: var(--qp-primary);
+
+    color: white;
+}
+
+.student-sidebar-brand {
+    color: white;
+    text-decoration: none;
+
+    font-size: 1.15rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.student-sidebar-brand:hover {
+    color: white;
+}
+
+/* =========================================================
+   SIDEBAR CLOSE BUTTON
+   ========================================================= */
+
+.student-sidebar-close {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.student-sidebar-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.student-sidebar-nav {
+    padding: 18px 12px;
+
+    flex: 1;
+}
+
+.student-sidebar-link {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 12px 14px;
+
+    margin-bottom: 5px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #343a40;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.student-sidebar-link i {
+    width: 22px;
+
+    font-size: 18px;
+
+    text-align: center;
+}
+
+.student-sidebar-link:hover {
+    background-color: #f0f1fb;
+    color: var(--qp-primary);
+}
+
+.student-sidebar-link.active {
+    background-color: #eef0fd;
+    color: var(--qp-primary);
+    font-weight: 600;
+}
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.student-sidebar-footer {
+    padding: 12px;
+
+    border-top: 1px solid #eeeeee;
+}
+
+.student-sidebar-footer form {
+    margin: 0;
+}
+
+.student-logout {
+    color: var(--qp-danger);
+}
+
+.student-logout:hover {
+    background-color: #fef2f2;
+    color: var(--qp-danger);
+}
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+
+.student-sidebar-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 1050;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease;
+}
+
+/*
+   SHOW OVERLAY
+*/
+
+.student-sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================================
+   STUDENT HAMBURGER BUTTON
+   ========================================================= */
+
+.student-menu-button {
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--qp-primary);
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.student-menu-button:hover {
+    background-color: var(--qp-primary-dark);
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   STUDENT MAIN CONTENT
+   ========================================================= */
+
+.student-main {
+    min-height: 100vh;
+
+    width: 100%;
+
+    padding: 80px 20px 40px;
+}
+
+/*
+   Main content stays FULL WIDTH.
+
+   IMPORTANT:
+   Do NOT add:
+       margin-left: 250px;
+
+   The sidebar is an overlay drawer.
+*/
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (min-width: 768px) {
+
+    .student-main {
+        padding: 90px 40px 50px;
+    }
+
+}
 
 @media (max-width: 576px) {
-    .stat-card .stat-value { font-size: 1.5rem; }
-    .auth-card { border-radius: 0; }
+
+    .student-sidebar {
+        width: 270px;
+    }
+
+    .student-main {
+        padding: 75px 15px 30px;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .auth-card {
+        border-radius: 0;
+    }
+
 }
+
+/* =========================================================
+   PREVENT BACKGROUND SCROLL WHEN MENU IS OPEN
+   ========================================================= */
+
+body.sidebar-open {
+    overflow: hidden;
+}
+
