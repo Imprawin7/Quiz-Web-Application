@@ -12,7 +12,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.quizplatform</groupId>
+    <groupId>com.Quizvera</groupId>
     <artifactId>online-quiz-platform</artifactId>
     <version>1.0.0</version>
 
