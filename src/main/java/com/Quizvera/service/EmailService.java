@@ -14,12 +14,17 @@ public class EmailService {
     @Value("${RESEND_API_KEY}")
     private String resendApiKey;
 
-    public void sendPasswordResetEmail(String toEmail, String fullName, String resetLink) {
+    public void sendPasswordResetEmail(
+            String toEmail,
+            String fullName,
+            String resetLink
+    ) {
 
         Resend resend = new Resend(resendApiKey);
 
         String htmlContent =
                 "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: auto;\">" +
+
                 "<h2 style=\"color: #4f46e5;\">Quizvera Password Reset</h2>" +
 
                 "<p>Hi " + fullName + ",</p>" +
@@ -56,15 +61,23 @@ public class EmailService {
                 .html(htmlContent)
                 .build();
 
-       try {
-    resend.emails().send(params);
-} catch (ResendException e) {
-    System.err.println("========== RESEND ERROR ==========");
-    System.err.println("Message: " + e.getMessage());
-    e.printStackTrace();
-    System.err.println("==================================");
+        try {
 
-    throw new RuntimeException("Failed to send password reset email", e);
-}
+            resend.emails().send(params);
+
+        } catch (ResendException e) {
+
+            System.err.println("========== RESEND ERROR ==========");
+            System.err.println("Exception class: " + e.getClass().getName());
+            System.err.println("Message: " + e.getMessage());
+            System.err.println("Cause: " + e.getCause());
+            e.printStackTrace(System.err);
+            System.err.println("==================================");
+
+            throw new RuntimeException(
+                    "Failed to send password reset email",
+                    e
+            );
+        }
     }
 }
