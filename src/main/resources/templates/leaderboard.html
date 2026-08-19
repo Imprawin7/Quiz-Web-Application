@@ -25,358 +25,346 @@
 
 </head>
 
-
 <body>
 
-<div class="quiz-layout">
+<!-- =====================================================
+     ROLE BASED NAVIGATION
+     ===================================================== -->
+
+<nav sec:authorize="hasRole('ADMIN')"
+     th:replace="~{fragments :: navbar-admin}">
+</nav>
+
+<nav sec:authorize="hasRole('STUDENT')"
+     th:replace="~{fragments :: navbar-student}">
+</nav>
 
 
-    <!-- =====================================================
-         STUDENT SIDEBAR
-         ===================================================== -->
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
 
-    <aside sec:authorize="hasRole('STUDENT')"
-           th:replace="~{fragments :: sidebar-student}">
-    </aside>
+<main class="container pb-5">
 
-    <!-- =====================================================
-         MAIN CONTENT
-         ===================================================== -->
+    <!-- =================================================
+         BREADCRUMB
+         ================================================= -->
 
-    <main class="quiz-main">
+    <nav aria-label="breadcrumb"
+         class="mb-3">
 
+        <ol class="breadcrumb">
 
-        <!-- =================================================
-             BREADCRUMB
-             ================================================= -->
+            <li class="breadcrumb-item">
 
-        <nav aria-label="breadcrumb"
-             class="mb-3">
-
-            <ol class="breadcrumb">
-
-                <li class="breadcrumb-item">
-
-                    <a href="/leaderboard">
-                        Leaderboard
-                    </a>
-
-                </li>
-
-
-                <li class="breadcrumb-item">
-
-                    <a href="/leaderboard/by-quiz">
-                        By Quiz
-                    </a>
-
-                </li>
-
-
-                <li class="breadcrumb-item active"
-                    th:text="${quiz.title}">
-
-                    Quiz
-
-                </li>
-
-            </ol>
-
-        </nav>
-
-
-        <!-- =================================================
-             PAGE HEADER
-             ================================================= -->
-
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-
-            <div>
-
-                <h3 class="fw-bold mb-1">
-
-                    <i class="bi bi-trophy-fill text-warning me-2"></i>
-
-                    <span th:text="${quiz.title}">
-                        Quiz
-                    </span>
-
+                <a href="/leaderboard">
                     Leaderboard
+                </a>
 
-                </h3>
+            </li>
 
-                <p class="text-muted mb-0">
-                    See how students performed in this quiz.
-                </p>
+            <li class="breadcrumb-item">
 
-            </div>
+                <a href="/leaderboard/by-quiz">
+                    By Quiz
+                </a>
+
+            </li>
+
+            <li class="breadcrumb-item active"
+                th:text="${quiz.title}">
+
+                Quiz
+
+            </li>
+
+        </ol>
+
+    </nav>
 
 
-            <a href="/leaderboard/by-quiz"
-               class="btn btn-outline-primary">
+    <!-- =================================================
+         PAGE HEADER
+         ================================================= -->
 
-                <i class="bi bi-arrow-left me-1"></i>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
 
-                All Quizzes
+        <div>
 
-            </a>
+            <h3 class="fw-bold mb-1">
+
+                <i class="bi bi-trophy-fill text-warning me-2"></i>
+
+                <span th:text="${quiz.title}">
+                    Quiz
+                </span>
+
+                Leaderboard
+
+            </h3>
+
+            <p class="text-muted mb-0">
+                See how students performed in this quiz.
+            </p>
 
         </div>
 
 
-        <!-- =================================================
-             LEADERBOARD CARD
-             ================================================= -->
+        <a href="/leaderboard/by-quiz"
+           class="btn btn-outline-primary">
 
-        <div class="card">
+            <i class="bi bi-arrow-left me-1"></i>
 
-            <div class="card-body border-bottom">
+            All Quizzes
 
-                <div class="d-flex align-items-center">
+        </a>
 
-                    <div class="leaderboard-icon me-3">
+    </div>
 
-                        <i class="bi bi-trophy-fill"></i>
 
-                    </div>
+    <!-- =================================================
+         LEADERBOARD CARD
+         ================================================= -->
 
-                    <div>
+    <div class="card">
 
-                        <h5 class="fw-bold mb-1">
-                            Rankings
-                        </h5>
+        <div class="card-body border-bottom">
 
-                        <p class="text-muted small mb-0">
-                            Students ranked by their quiz performance.
-                        </p>
+            <div class="d-flex align-items-center">
 
-                    </div>
+                <div class="leaderboard-icon me-3">
+
+                    <i class="bi bi-trophy-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        Rankings
+                    </h5>
+
+                    <p class="text-muted small mb-0">
+                        Students ranked by their quiz performance.
+                    </p>
 
                 </div>
 
             </div>
 
-
-            <!-- =================================================
-                 TABLE
-                 ================================================= -->
-
-            <div class="table-responsive">
-
-                <table class="table mb-0 align-middle">
-
-                    <thead>
-
-                    <tr>
-
-                        <th>Rank</th>
-
-                        <th>Student</th>
-
-                        <th>Score</th>
-
-                        <th>Percentage</th>
-
-                        <th>Submitted</th>
-
-                    </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-
-                    <!-- =================================================
-                         LEADERBOARD ROW
-                         ================================================= -->
-
-                    <tr th:each="a, iter : ${attempts}"
-
-                        th:classappend="${iter.index == 0
-                            ? 'rank-1'
-                            : (iter.index == 1
-                                ? 'rank-2'
-                                : (iter.index == 2
-                                    ? 'rank-3'
-                                    : ''))}">
-
-
-                        <!-- Rank -->
-
-                        <td class="fw-bold">
-
-                            <!-- First -->
-
-                            <span th:if="${iter.index == 0}"
-                                  class="fs-5">
-
-                                🥇
-
-                            </span>
-
-
-                            <!-- Second -->
-
-                            <span th:if="${iter.index == 1}"
-                                  class="fs-5">
-
-                                🥈
-
-                            </span>
-
-
-                            <!-- Third -->
-
-                            <span th:if="${iter.index == 2}"
-                                  class="fs-5">
-
-                                🥉
-
-                            </span>
-
-
-                            <!-- Other ranks -->
-
-                            <span th:if="${iter.index > 2}"
-                                  th:text="'#' + (iter.index + 1)">
-
-                                #4
-
-                            </span>
-
-                        </td>
-
-
-                        <!-- Student -->
-
-                        <td>
-
-                            <div class="d-flex align-items-center">
-
-                                <div class="leaderboard-avatar me-2">
-
-                                    <i class="bi bi-person-fill"></i>
-
-                                </div>
-
-                                <span class="fw-semibold"
-                                      th:text="${a.student.fullName}">
-
-                                    Student
-
-                                </span>
-
-                            </div>
-
-                        </td>
-
-
-                        <!-- Score -->
-
-                        <td>
-
-                            <strong th:text="${a.score + '/' + a.totalMarks}">
-
-                                0
-
-                            </strong>
-
-                        </td>
-
-
-                        <!-- Percentage -->
-
-                        <td>
-
-                            <span class="fw-semibold"
-                                  th:text="${a.percentage + '%'}">
-
-                                0%
-
-                            </span>
-
-                        </td>
-
-
-                        <!-- Submitted -->
-
-                        <td>
-
-                            <span th:if="${a.endTime != null}"
-                                  th:text="${#temporals.format(a.endTime, 'dd MMM yyyy, HH:mm')}">
-
-                                -
-
-                            </span>
-
-                            <span th:unless="${a.endTime != null}">
-                                -
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-
-                    <!-- =================================================
-                         EMPTY LEADERBOARD
-                         ================================================= -->
-
-                    <tr th:if="${#lists.isEmpty(attempts)}">
-
-                        <td colspan="5"
-                            class="text-center text-muted py-5">
-
-                            <div class="mb-3">
-
-                                <i class="bi bi-trophy fs-1"></i>
-
-                            </div>
-
-                            <h5 class="fw-bold">
-                                No submissions yet
-                            </h5>
-
-                            <p class="mb-0">
-                                Be the first student to complete this quiz!
-                            </p>
-
-                        </td>
-
-                    </tr>
-
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
         </div>
 
 
         <!-- =================================================
-             BACK BUTTON
+             TABLE
              ================================================= -->
 
-        <div class="mt-4">
+        <div class="table-responsive">
 
-            <a href="/leaderboard/by-quiz"
-               class="btn btn-outline-primary">
+            <table class="table mb-0 align-middle">
 
-                <i class="bi bi-arrow-left me-1"></i>
+                <thead>
 
-                Back to Leaderboards
+                <tr>
 
-            </a>
+                    <th>Rank</th>
+
+                    <th>Student</th>
+
+                    <th>Score</th>
+
+                    <th>Percentage</th>
+
+                    <th>Submitted</th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                <!-- =================================================
+                     LEADERBOARD ROW
+                     ================================================= -->
+
+                <tr th:each="a, iter : ${attempts}"
+
+                    th:classappend="${iter.index == 0
+                        ? 'rank-1'
+                        : (iter.index == 1
+                            ? 'rank-2'
+                            : (iter.index == 2
+                                ? 'rank-3'
+                                : ''))}">
+
+
+                    <!-- Rank -->
+
+                    <td class="fw-bold">
+
+                        <span th:if="${iter.index == 0}"
+                              class="fs-5">
+
+                            🥇
+
+                        </span>
+
+
+                        <span th:if="${iter.index == 1}"
+                              class="fs-5">
+
+                            🥈
+
+                        </span>
+
+
+                        <span th:if="${iter.index == 2}"
+                              class="fs-5">
+
+                            🥉
+
+                        </span>
+
+
+                        <span th:if="${iter.index > 2}"
+                              th:text="'#' + (iter.index + 1)">
+
+                            #4
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Student -->
+
+                    <td>
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="leaderboard-avatar me-2">
+
+                                <i class="bi bi-person-fill"></i>
+
+                            </div>
+
+                            <span class="fw-semibold"
+                                  th:text="${a.student.fullName}">
+
+                                Student
+
+                            </span>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Score -->
+
+                    <td>
+
+                        <strong th:text="${a.score + '/' + a.totalMarks}">
+
+                            0
+
+                        </strong>
+
+                    </td>
+
+
+                    <!-- Percentage -->
+
+                    <td>
+
+                        <span class="fw-semibold"
+                              th:text="${a.percentage + '%'}">
+
+                            0%
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Submitted -->
+
+                    <td>
+
+                        <span th:if="${a.endTime != null}"
+                              th:text="${#temporals.format(a.endTime, 'dd MMM yyyy, HH:mm')}">
+
+                            -
+
+                        </span>
+
+                        <span th:unless="${a.endTime != null}">
+                            -
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <!-- =================================================
+                     EMPTY LEADERBOARD
+                     ================================================= -->
+
+                <tr th:if="${#lists.isEmpty(attempts)}">
+
+                    <td colspan="5"
+                        class="text-center text-muted py-5">
+
+                        <div class="mb-3">
+
+                            <i class="bi bi-trophy fs-1"></i>
+
+                        </div>
+
+                        <h5 class="fw-bold">
+                            No submissions yet
+                        </h5>
+
+                        <p class="mb-0">
+                            Be the first student to complete this quiz!
+                        </p>
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
 
         </div>
 
+    </div>
 
-    </main>
 
-</div>
+    <!-- =================================================
+         BACK BUTTON
+         ================================================= -->
+
+    <div class="mt-4">
+
+        <a href="/leaderboard/by-quiz"
+           class="btn btn-outline-primary">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Back to Leaderboards
+
+        </a>
+
+    </div>
+
+
+</main>
 
 </body>
 
