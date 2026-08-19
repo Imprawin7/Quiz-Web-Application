@@ -56,10 +56,15 @@ public class EmailService {
                 .html(htmlContent)
                 .build();
 
-        try {
-            resend.emails().send(params);
-        } catch (ResendException e) {
-            throw new RuntimeException("Failed to send password reset email", e);
-        }
+       try {
+    resend.emails().send(params);
+} catch (ResendException e) {
+    System.err.println("========== RESEND ERROR ==========");
+    System.err.println("Message: " + e.getMessage());
+    e.printStackTrace();
+    System.err.println("==================================");
+
+    throw new RuntimeException("Failed to send password reset email", e);
+}
     }
 }
