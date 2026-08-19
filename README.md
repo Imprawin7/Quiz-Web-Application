@@ -1,4 +1,4 @@
-# Quizvera
+# Online Quiz Platform
 A complete, production-style **Java Spring Boot** web application for creating, taking, and
 grading online quizzes — with separate Admin and Student experiences, a live countdown timer,
 automatic scoring, performance analytics, and leaderboards.
