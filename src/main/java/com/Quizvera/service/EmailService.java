@@ -1,7 +1,8 @@
 package com.Quizvera.service;
+
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;
-import com.resend.services.emails.model.SendEmailRequest;
+import com.resend.services.emails.model.CreateEmailOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class EmailService {
 
                 "</div>";
 
-        SendEmailRequest request = SendEmailRequest.builder()
+        CreateEmailOptions params = CreateEmailOptions.builder()
                 .from("Quizvera <onboarding@resend.dev>")
                 .to(toEmail)
                 .subject("Reset your Quizvera password")
@@ -56,7 +57,7 @@ public class EmailService {
                 .build();
 
         try {
-            resend.emails().send(request);
+            resend.emails().send(params);
         } catch (ResendException e) {
             throw new RuntimeException("Failed to send password reset email", e);
         }
